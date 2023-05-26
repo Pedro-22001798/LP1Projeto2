@@ -10,9 +10,9 @@ namespace CardGame
         string name;
         int health;
         int mana;
-        List<Card> deck;
+        IEnumerable<Card> deck;
 
-        public Player(string name, List<Card> deck)
+        public Player(string name, IEnumerable<Card> deck)
         {
             this.name = name;
             this.health = 10;

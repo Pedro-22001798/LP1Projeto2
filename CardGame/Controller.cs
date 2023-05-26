@@ -8,7 +8,7 @@ namespace CardGame
     public class Controller
     {
         IView view;
-        IEnumerable<Player> playerList;
+        IList<Player> playerList;
         int maxCard = 20;
         public Controller()
         {
@@ -28,13 +28,13 @@ namespace CardGame
 
         public void CreatePlayer(string name)
         {
-            Player player1 = new Player(name,);
+            Player player1 = new Player(name,CreateRandomDeck());
             playerList.Add(player1);
-            Player player2 = new Player(name,);
+            Player player2 = new Player(name,CreateRandomDeck());
             playerList.Add(player2);
         }
 
-        public IEnumerable<Card> CreateRandomDeck()
+        public IEnumerable<Card> CreateDeck()
         {
             for(int i = 0; i < 4; i++)
             {
@@ -56,6 +56,45 @@ namespace CardGame
                 Card lobsterMcCrabs = new Card("Lobster McCrabs", 2, 1, 3);
                 yield return lobsterMcCrabs;
             }
+            for(int i = 0; i < 2; i++)
+            {
+                Card goblinTroll = new Card("Goblin Troll", 3, 3, 2);
+                yield return goblinTroll;
+            }
+            for(int i = 0; i < 1; i++)
+            {
+                Card scorchingHeatwave = new Card("Scorching Heatwave", 4, 5, 3);
+                yield return scorchingHeatwave;
+            }
+            for(int i = 0; i < 1; i++)
+            {
+                Card blindMinotaur = new Card("Blind Minotaur", 3, 1, 3);
+                yield return blindMinotaur;
+            }
+            for(int i = 0; i < 1; i++)
+            {
+                Card timWizard = new Card("Tim, The Wizard", 5, 6, 4);
+                yield return timWizard;
+            }
+            for(int i = 0; i < 1; i++)
+            {
+                Card sharplyDepressed = new Card("Sharply Depressed", 4, 3, 3);
+                yield return sharplyDepressed;
+            }
+            for(int i = 0; i < 2; i++)
+            {
+                Card blueSteel = new Card("Blue Steel", 2, 2, 2);
+                yield return blueSteel;
+            }
+        }
+
+        public IEnumerable<Card> CreateRandomDeck()
+        {
+            IEnumerable<Card> deck = new List<Card>();
+            deck = CreateDeck();
+            Random rng = new Random();
+            var shuffledCards = deck.OrderBy(a => rng.Next()).ToList();
+            return shuffledCards;
         }
     }
 }
