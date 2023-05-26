@@ -7,17 +7,24 @@ namespace CardGame
 {
     public class Player : IPlayer
     {
-        string name;
-        int health;
-        int mana;
+        public string Name{get;}
+        public int Health {get;}
+        public int Mana {get;}
         IEnumerable<Card> deck;
+        IEnumerable<Card> currentHand;
 
         public Player(string name, IEnumerable<Card> deck)
         {
-            this.name = name;
-            this.health = 10;
-            this.mana = 0;
+            this.Name = name;
+            this.Health = 10;
+            this.Mana = 0;
             this.deck = deck;
+        }
+
+        public IEnumerable<Card> GetDeck()
+        {
+            foreach(Card c in deck)
+                yield return c;
         }
     }
 }

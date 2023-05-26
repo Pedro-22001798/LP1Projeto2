@@ -6,7 +6,9 @@ namespace CardGame
     {
         private static void Main()
         {
-            Controller controller = new Controller();
+            DeckCreator deckCreator = new DeckCreator();
+
+            Controller controller = new Controller(deckCreator);
 
             IView view = new View(controller);
 

@@ -28,5 +28,10 @@ namespace CardGame
             yield return name;
             yield break;
         }
+
+        public void Turn(Player player)
+        {
+            Console.WriteLine($"It's {player}'s turn.");
+        }
     }
 }

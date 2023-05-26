@@ -7,6 +7,9 @@ namespace CardGame
 {
     public interface IPlayer
     {
-        
+        string Name{get;}
+        int Health{get;}
+        int Mana{get;}
+        IEnumerable<Card> GetDeck();
     }
 }
