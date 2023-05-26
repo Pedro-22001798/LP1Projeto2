@@ -12,5 +12,21 @@ namespace CardGame
         {
             this.controller = controller;
         }
+
+        public void BeginGame()
+        {
+            Console.WriteLine("Hello! Welcome to Tragic: The Reckoning card game");
+        }
+
+        public IEnumerable<string> ListPlayers()
+        {
+            Console.WriteLine("What's the name of player 1?");
+            string name = Console.ReadLine();
+            yield return name;
+            Console.WriteLine("What's the name of player 2");
+            name = Console.ReadLine();
+            yield return name;
+            yield break;
+        }
     }
 }

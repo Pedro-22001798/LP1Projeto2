@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace CardGame
 {
-    public interface IView
+    public interface IPlayer
     {
-        void BeginGame();
-        IEnumerable<string> ListPlayers();
+        
     }
 }
