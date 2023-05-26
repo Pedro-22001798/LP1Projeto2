@@ -31,7 +31,12 @@ namespace CardGame
 
         public void Turn(IPlayer player)
         {
-            Console.WriteLine($"It's {player}'s turn.");
+            Console.WriteLine($"It's {player.Name}'s turn.");
+        }
+
+        public void ShowPlayerInformation(IPlayer player)
+        {
+            
         }
     }
 }

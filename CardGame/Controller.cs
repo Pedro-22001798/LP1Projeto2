@@ -12,7 +12,7 @@ namespace CardGame
         IList<IPlayer> playerList;
         int maxCard = 20;
         int initialCards = 6;
-        int turn;
+        int turn = 0;
         public Controller(DeckCreator deckCreator)
         {
             this.deckCreator = deckCreator;
@@ -29,8 +29,23 @@ namespace CardGame
                 CreatePlayer(s);
             }
 
+            foreach(IPlayer p in playerList)
+                deckCreator.GetInitialHand(p.GetDeck());
+
             do
             {
+                turn++;
+                if(turn > 5)
+                {
+                    foreach(Player p in playerList)
+                        p.Mana = turn;
+                }
+                else
+                {
+                    foreach(Player p in playerList)
+                        p.Mana = 5;
+                }
+
                 for(int i = 0; i < playerList.Count; i++)
                 {
                     view.Turn(playerList[i]);

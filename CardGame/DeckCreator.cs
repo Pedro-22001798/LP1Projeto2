@@ -7,6 +7,7 @@ namespace CardGame
 {
     public class DeckCreator
     {
+        int initialHand = 6;
         public IEnumerable<Card> CreateDeck()
         {
             for(int i = 0; i < 4; i++)
@@ -68,6 +69,12 @@ namespace CardGame
             Random rng = new Random();
             var shuffledCards = deck.OrderBy(a => rng.Next()).ToList();
             return shuffledCards;
-        }        
+        }
+
+        public IEnumerable<Card> GetInitialHand(IEnumerable<Card> deck)
+        {
+            Random rnd = new Random();
+            return deck.OrderBy(x => rnd.Next()).Take(initialHand);
+        }   
     }
 }

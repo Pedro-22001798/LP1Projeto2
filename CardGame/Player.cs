@@ -8,11 +8,10 @@ namespace CardGame
     public class Player : IPlayer
     {
         public string Name{get;}
-        public int Health {get;}
-        public int Mana {get;}
+        public int Health {get; set;}
+        public int Mana {get; set;}
         IEnumerable<Card> deck;
         IEnumerable<Card> currentHand;
-
         public Player(string name, IEnumerable<Card> deck)
         {
             this.Name = name;
@@ -25,6 +24,11 @@ namespace CardGame
         {
             foreach(Card c in deck)
                 yield return c;
+        }
+
+        public void DefineCurrentHand(IEnumerable<Card> currentHand)
+        {
+            this.currentHand = currentHand;
         }
     }
 }
