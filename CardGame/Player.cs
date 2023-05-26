@@ -26,6 +26,12 @@ namespace CardGame
                 yield return c;
         }
 
+        public IEnumerable<Card> GetHand()
+        {
+            foreach(Card c in currentHand)
+                yield return c;
+        }
+
         public void DefineCurrentHand(IEnumerable<Card> currentHand)
         {
             this.currentHand = currentHand;

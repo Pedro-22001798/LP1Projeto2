@@ -21,11 +21,11 @@ namespace CardGame
         public IEnumerable<string> ListPlayers()
         {
             Console.WriteLine("What's the name of player 1?");
-            string name = Console.ReadLine();
-            yield return name;
+            string name1 = Console.ReadLine();
+            yield return name1;
             Console.WriteLine("What's the name of player 2");
-            name = Console.ReadLine();
-            yield return name;
+            string name2 = Console.ReadLine();
+            yield return name2;
             yield break;
         }
 
@@ -36,7 +36,7 @@ namespace CardGame
 
         public void ShowPlayerInformation(IPlayer player)
         {
-            
+
         }
     }
 }

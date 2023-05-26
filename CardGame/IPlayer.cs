@@ -11,5 +11,7 @@ namespace CardGame
         int Health{get;}
         int Mana{get;}
         IEnumerable<Card> GetDeck();
+        IEnumerable<Card> GetHand();
+        void DefineCurrentHand(IEnumerable<Card> hand);
     }
 }

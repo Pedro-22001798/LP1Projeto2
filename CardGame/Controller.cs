@@ -30,36 +30,37 @@ namespace CardGame
             }
 
             foreach(IPlayer p in playerList)
-                deckCreator.GetInitialHand(p.GetDeck());
-
-            do
             {
-                turn++;
-                if(turn > 5)
-                {
-                    foreach(Player p in playerList)
-                        p.Mana = turn;
-                }
-                else
-                {
-                    foreach(Player p in playerList)
-                        p.Mana = 5;
-                }
-
-                for(int i = 0; i < playerList.Count; i++)
-                {
-                    view.Turn(playerList[i]);
-                }
+                p.DefineCurrentHand(deckCreator.GetInitialHand(p.GetDeck()));
+                Console.WriteLine($"{p.Name}'s deck has {p.GetDeck().Count()} cards and hand has {p.GetHand().Count()}");
             }
-            while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].GetDeck().Count() > 0 && playerList[1].GetDeck().Count() > 0);
+
+            // do
+            // {
+            //     turn++;
+            //     if(turn > 5)
+            //     {
+            //         foreach(Player p in playerList)
+            //             p.Mana = turn;
+            //     }
+            //     else
+            //     {
+            //         foreach(Player p in playerList)
+            //             p.Mana = 5;
+            //     }
+
+            //     for(int i = 0; i < playerList.Count; i++)
+            //     {
+            //         view.Turn(playerList[i]);
+            //     }
+            // }
+            // while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].GetDeck().Count() > 0 && playerList[1].GetDeck().Count() > 0);
         }
 
         public void CreatePlayer(string name)
         {
-            IPlayer player1 = new Player(name,deckCreator.CreateRandomDeck());
-            playerList.Add(player1);
-            IPlayer player2 = new Player(name,deckCreator.CreateRandomDeck());
-            playerList.Add(player2);
+            IPlayer player = new Player(name,deckCreator.CreateRandomDeck());
+            playerList.Add(player);
         }
     }
 }

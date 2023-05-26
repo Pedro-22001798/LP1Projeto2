@@ -74,7 +74,11 @@ namespace CardGame
         public IEnumerable<Card> GetInitialHand(IEnumerable<Card> deck)
         {
             Random rnd = new Random();
-            return deck.OrderBy(x => rnd.Next()).Take(initialHand);
+            List<Card> hand = deck.OrderBy(x => rnd.Next()).Take(initialHand).ToList();
+
+            deck.RemoveAll(card => hand.Contains(card));
+
+            return hand;
         }   
     }
 }
