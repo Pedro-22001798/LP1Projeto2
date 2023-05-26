@@ -9,5 +9,6 @@ namespace CardGame
     {
         void BeginGame();
         IEnumerable<string> ListPlayers();
+        void Turn(IPlayer player);
     }
 }

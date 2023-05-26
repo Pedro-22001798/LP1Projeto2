@@ -12,6 +12,7 @@ namespace CardGame
         IList<IPlayer> playerList;
         int maxCard = 20;
         int initialCards = 6;
+        int turn;
         public Controller(DeckCreator deckCreator)
         {
             this.deckCreator = deckCreator;
@@ -27,6 +28,15 @@ namespace CardGame
             {
                 CreatePlayer(s);
             }
+
+            do
+            {
+                for(int i = 0; i < playerList.Count; i++)
+                {
+                    view.Turn(playerList[i]);
+                }
+            }
+            while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].GetDeck().Count() > 0 && playerList[1].GetDeck().Count() > 0);
         }
 
         public void CreatePlayer(string name)

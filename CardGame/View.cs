@@ -29,7 +29,7 @@ namespace CardGame
             yield break;
         }
 
-        public void Turn(Player player)
+        public void Turn(IPlayer player)
         {
             Console.WriteLine($"It's {player}'s turn.");
         }
