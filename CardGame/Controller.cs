@@ -13,12 +13,21 @@ namespace CardGame
         int maxCard = 20;
         int initialCards = 6;
         int turn = 0;
+
+        /// <summary>
+        /// Controller constructor, called everytime a controller is created.
+        /// </summary>
+        /// <param name="deckCreator">Current deck creator</param>
         public Controller(DeckCreator deckCreator)
         {
             this.deckCreator = deckCreator;
             playerList = new List<IPlayer>();
         }
 
+        /// <summary>
+        /// Method responsible for starting the game loop.
+        /// </summary>
+        /// <param name="view">Current view responsible for visual feedback of the game loop</param>
         public void Run(IView view)
         {
             this.view = view;
@@ -51,6 +60,10 @@ namespace CardGame
             // while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].GetDeck().Count() > 0 && playerList[1].GetDeck().Count() > 0);
         }
 
+        /// <summary>
+        /// Method responsible for creating a new player and also his deck and initial hand.
+        /// </summary>
+        /// <param name="name">Player's name</param>
         public void CreatePlayer(string name)
         {
             IPlayer player = new Player(name);

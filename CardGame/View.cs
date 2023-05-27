@@ -8,16 +8,28 @@ namespace CardGame
     public class View : IView
     {
         Controller controller;
+
+        /// <summary>
+        /// View constructor, called when creating a new view.
+        /// </summary>
+        /// <param name="controller">Game Engine</param>
         public View(Controller controller)
         {
             this.controller = controller;
         }
 
+        /// <summary>
+        /// Method responsible for greeting the player once starting the game.
+        /// </summary>
         public void BeginGame()
         {
             Console.WriteLine("Hello! Welcome to Tragic: The Reckoning card game");
         }
 
+        /// <summary>
+        /// Method responsible for listing the players and their names.
+        /// </summary>
+        /// <returns>List of strings with the players names</returns>
         public IEnumerable<string> ListPlayers()
         {
             Console.WriteLine("What's the name of player 1?");
@@ -29,6 +41,10 @@ namespace CardGame
             yield break;
         }
 
+        /// <summary>
+        /// Method responsible for informing the players of a turn change.
+        /// </summary>
+        /// <param name="player">Player that is now playing</param>
         public void Turn(IPlayer player)
         {
             Console.WriteLine($"It's {player.Name}'s turn.");

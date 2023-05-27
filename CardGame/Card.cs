@@ -11,6 +11,14 @@ namespace CardGame
         public int Cost{get;private set;}
         public int Attack{get;private set;}
         public int Defense{get;private set;}
+        
+        /// <summary>
+        /// Card constructor, called when creating a new card.
+        /// </summary>
+        /// <param name="name">Name of the card.</param>
+        /// <param name="cost">Cost of the card.</param>
+        /// <param name="attack">Attack of the card.</param>
+        /// <param name="defense">Defense of the card.</param>
         public Card(string name, int cost, int attack, int defense)
         {
             this.Name = name;
