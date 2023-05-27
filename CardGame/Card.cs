@@ -7,16 +7,16 @@ namespace CardGame
 {
     public class Card : ICard
     {
-        string name;
-        int cost;
-        int attack;
-        int defense;
+        public string Name{get;set;}
+        public int Cost{get;set;}
+        public int Attack{get;set;}
+        public int Defense{get;set;}
         public Card(string name, int cost, int attack, int defense)
         {
-            this.name = name;
-            this.cost = cost;
-            this.attack = attack;
-            this.defense = defense;
+            this.Name = name;
+            this.Cost = cost;
+            this.Attack = attack;
+            this.Defense = defense;
         }
     }
 }

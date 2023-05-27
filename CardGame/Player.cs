@@ -10,9 +10,9 @@ namespace CardGame
         public string Name{get;}
         public int Health {get; set;}
         public int Mana {get; set;}
-        IEnumerable<Card> deck;
-        IEnumerable<Card> currentHand;
-        public Player(string name, IEnumerable<Card> deck)
+        IEnumerable<ICard> deck;
+        IEnumerable<ICard> currentHand;
+        public Player(string name, IEnumerable<ICard> deck)
         {
             this.Name = name;
             this.Health = 10;
@@ -20,19 +20,19 @@ namespace CardGame
             this.deck = deck;
         }
 
-        public IEnumerable<Card> GetDeck()
+        public IEnumerable<ICard> GetDeck()
         {
-            foreach(Card c in deck)
+            foreach(ICard c in deck)
                 yield return c;
         }
 
-        public IEnumerable<Card> GetHand()
+        public IEnumerable<ICard> GetHand()
         {
-            foreach(Card c in currentHand)
+            foreach(ICard c in currentHand)
                 yield return c;
         }
 
-        public void DefineCurrentHand(IEnumerable<Card> currentHand)
+        public void DefineCurrentHand(IEnumerable<ICard> currentHand)
         {
             this.currentHand = currentHand;
         }

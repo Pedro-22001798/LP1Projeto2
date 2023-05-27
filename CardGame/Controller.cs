@@ -33,6 +33,10 @@ namespace CardGame
             {
                 p.DefineCurrentHand(deckCreator.GetInitialHand(p.GetDeck()));
                 Console.WriteLine($"{p.Name}'s deck has {p.GetDeck().Count()} cards and hand has {p.GetHand().Count()}");
+                foreach(ICard c in p.GetHand())
+                {
+                    Console.WriteLine($"CARD = {c.Name} with {c.Attack} attack and {c.Cost} cost and {c.Defense} defense.");
+                }
             }
 
             // do
