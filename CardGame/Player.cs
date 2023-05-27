@@ -21,12 +21,11 @@ namespace CardGame
         public void DefineDeck(IEnumerable<ICard> deck)
         {
             this.Deck = deck;
-            DefineHand(this.Deck);
-            this.Deck = this.Deck.Except(this.Hand);
         }
 
-        private void DefineHand(IEnumerable<ICard> hand)
+        public void DefineHand(IEnumerable<ICard> hand)
         {
+            this.Deck = this.Deck.Except(hand);
             this.Hand = hand;
         }
     }

@@ -12,6 +12,7 @@ namespace CardGame
         int Mana{get;}
         IEnumerable<ICard> Hand {get;}
         IEnumerable<ICard> Deck {get;}
-        void DefineDeck(IEnumerable<ICard> hand);
+        void DefineDeck(IEnumerable<ICard> deck);
+        void DefineHand(IEnumerable<ICard> hand);
     }
 }
