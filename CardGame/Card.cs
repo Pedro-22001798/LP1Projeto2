@@ -7,10 +7,10 @@ namespace CardGame
 {
     public class Card : ICard
     {
-        public string Name{get;set;}
-        public int Cost{get;set;}
-        public int Attack{get;set;}
-        public int Defense{get;set;}
+        public string Name{get;private set;}
+        public int Cost{get;private set;}
+        public int Attack{get;private set;}
+        public int Defense{get;private set;}
         public Card(string name, int cost, int attack, int defense)
         {
             this.Name = name;

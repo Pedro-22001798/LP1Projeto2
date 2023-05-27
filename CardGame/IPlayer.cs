@@ -10,8 +10,8 @@ namespace CardGame
         string Name{get;}
         int Health{get;}
         int Mana{get;}
-        IEnumerable<ICard> GetDeck();
-        IEnumerable<ICard> GetHand();
-        void DefineCurrentHand(IEnumerable<ICard> hand);
+        IEnumerable<ICard> Hand {get;}
+        IEnumerable<ICard> Deck {get;}
+        void DefineDeck(IEnumerable<ICard> hand);
     }
 }

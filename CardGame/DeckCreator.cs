@@ -72,10 +72,16 @@ namespace CardGame
         }
 
         public IEnumerable<ICard> GetInitialHand(IEnumerable<ICard> deck)
-        {
-            Random rnd = new Random();
-            List<ICard> hand = deck.OrderBy(x => rnd.Next()).Take(initialHand).ToList();
-            return hand;
+        {    
+            for (int i = 0; i < initialHand; i++)
+            {
+                if (deck.Any())
+                {
+                    ICard card = deck.First();
+                    deck = deck.Skip(1);
+                    yield return card;
+                }
+            }            
         }   
     }
 }

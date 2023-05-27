@@ -31,12 +31,11 @@ namespace CardGame
 
             foreach(IPlayer p in playerList)
             {
-                p.DefineCurrentHand(deckCreator.GetInitialHand(p.GetDeck()));
-                Console.WriteLine($"{p.Name}'s deck has {p.GetDeck().Count()} cards and hand has {p.GetHand().Count()}");
-                foreach(ICard c in p.GetHand())
-                {
-                    Console.WriteLine($"CARD = {c.Name} with {c.Attack} attack and {c.Cost} cost and {c.Defense} defense.");
-                }
+                Console.WriteLine($"{p.Name}'s deck has {p.Deck.Count()}");
+                // foreach(ICard c in p.GetHand())
+                // {
+                //     Console.WriteLine($"CARD = {c.Name} with {c.Attack} attack and {c.Cost} cost and {c.Defense} defense.");
+                // }
             }
 
             // do
@@ -63,7 +62,8 @@ namespace CardGame
 
         public void CreatePlayer(string name)
         {
-            IPlayer player = new Player(name,deckCreator.CreateRandomDeck());
+            IPlayer player = new Player(name);
+            player.DefineDeck(deckCreator.CreateRandomDeck());
             playerList.Add(player);
         }
     }
