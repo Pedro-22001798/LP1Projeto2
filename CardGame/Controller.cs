@@ -29,15 +29,6 @@ namespace CardGame
                 CreatePlayer(s);
             }
 
-            foreach(IPlayer p in playerList)
-            {
-                Console.WriteLine($"{p.Name}'s deck has {p.Deck.Count()}");
-                foreach(ICard c in p.Hand)
-                {
-                    Console.WriteLine($"CARD = {c.Name} with {c.Attack} attack and {c.Cost} cost and {c.Defense} defense.");
-                }
-            }
-
             // do
             // {
             //     turn++;
