@@ -54,5 +54,54 @@ namespace CardGame
         {
 
         }
+
+        public void ShowGamePhase(string phase)
+        {
+            switch(phase)
+            {
+                case "Attack":
+                    Console.WriteLine("It's the attack stage!");
+                    break;
+                case "Spells":
+                    Console.WriteLine("It's the spell stage!");
+                    break;
+            }
+        }
+
+        public int ShowHand(IEnumerable<ICard> hand, int mana)
+        {
+            ShowFirstOption();
+            int index = 1;
+            int tempMana = mana;
+            foreach(ICard c in hand)
+            {
+                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}");
+                index++;
+            }
+            int option = Convert.ToInt32(Console.ReadLine());
+            while(option > hand.Count() || option < 0 || hand.ElementAt(option).Cost > tempMana)
+            {
+                Console.WriteLine("Invalid option. Choose another one.");
+                option = Convert.ToInt32(Console.ReadLine());    
+            }
+            tempMana = tempMana - hand.ElementAt(option).Cost;
+            return option;
+        }
+
+        public void ShowFirstOption()
+        {
+            Console.WriteLine("0 = End Turn");
+        }
+
+        public void ShowPlayingCards(IEnumerable<ICard> playingcards)
+        {
+            Console.WriteLine("Playing Hand:");
+            int index = 1;
+            foreach(ICard c in playingcards)
+            {
+                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}");
+                index++;
+            }
+        }
     }
 }

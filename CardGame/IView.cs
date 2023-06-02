@@ -10,5 +10,9 @@ namespace CardGame
         void BeginGame();
         IEnumerable<string> ListPlayers();
         void Turn(IPlayer player);
+        int ShowHand(IEnumerable<ICard> hand, int mana);
+        void ShowGamePhase(string phase);
+        void ShowFirstOption();
+        void ShowPlayingCards(IEnumerable<ICard> playingcards);
     }
 }

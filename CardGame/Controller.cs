@@ -38,55 +38,46 @@ namespace CardGame
                 CreatePlayer(s);
             }
 
-            // do
-            // {
-            //     turn++;
-            //     if(turn > 5)
-            //     {
-            //         foreach(Player p in playerList)
-            //             p.Mana = turn;
-            //     }
-            //     else
-            //     {
-            //         foreach(Player p in playerList)
-            //             p.Mana = 5;
-            //     }
-
-            //     for(int i = 0; i < playerList.Count; i++)
-            //     {
-            //         view.Turn(playerList[i]);
-            //     }
-            // }
-            // while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].GetDeck().Count() > 0 && playerList[1].GetDeck().Count() > 0);
-
-            // TEMP TO REMOVE JUST TO TEST
-            Console.WriteLine("Fase de feitiços!");
-            Console.WriteLine($"{playerList[0].Name} é o teu turno. Que cartas queres jogar?");
-            int index = 1;
-            foreach(ICard c in playerList[0].Hand)
+            do
             {
-                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack = {c.Attack}, Defense = {c.Defense}");
-                index++;
-            }
-            int choice = Convert.ToInt32(Console.ReadLine());
-            ICard p1Card = playerList[0].Hand.ElementAt(choice-1);
-            
+                turn++;
+                if(turn < 5)
+                {
+                    foreach(Player p in playerList)
+                        p.DefineMana(turn);
+                }
+                else
+                {
+                    foreach(Player p in playerList)
+                        p.DefineMana(5);
+                }
 
-            Console.WriteLine($"{playerList[1].Name} é o teu turno. Que cartas queres jogar?");
-            index = 1;
-            foreach(ICard c in playerList[1].Hand)
-            {
-                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack = {c.Attack}, Defense = {c.Defense}");
-                index++;
-            }
-            choice = Convert.ToInt32(Console.ReadLine());
-            ICard p2Card = playerList[1].Hand.ElementAt(choice-1);
-            
+                view.ShowGamePhase("Spells");
 
-            if(p1Card.Attack > p2Card.Defense)
-                Console.WriteLine($"{p1Card.Name} wins!");
-            else
-                Console.WriteLine($"{p2Card.Name} resists!");
+                for(int i = 0; i < playerList.Count; i++)
+                {
+                    view.Turn(playerList[i]);
+                    List<ICard> currentPlay = new List<ICard>();
+                    while(playerList[i].Mana > 0)
+                    {
+                        int option = view.ShowHand(playerList[i].Hand, playerList[i].Mana);
+
+                        if(option == 0)
+                        {
+                            continue;
+                        }
+
+                        currentPlay.Add(playerList[i].Hand.ElementAt(option));
+                        int tempCardCost = playerList[i].Hand.ElementAt(option).Cost;
+                        playerList[i].UseMana(tempCardCost);
+                    }
+                    view.ShowPlayingCards(currentPlay);
+                }
+            }
+            while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].Deck.Count() > 0 && playerList[1].Deck.Count() > 0);
+
+
+
         }
 
         /// <summary>

@@ -61,5 +61,18 @@ namespace CardGame
             this.Deck = this.Deck.Except(hand);
             this.Hand = hand;
         }
+
+        public void DefineMana(int mana)
+        {
+            this.Mana = mana;
+        }
+
+        public void UseMana(int mana)
+        {
+            if(this.Mana >= mana)
+            {
+                this.Mana = this.Mana - mana;
+            }
+        }
     }
 }
