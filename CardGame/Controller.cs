@@ -58,6 +58,35 @@ namespace CardGame
             //     }
             // }
             // while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].GetDeck().Count() > 0 && playerList[1].GetDeck().Count() > 0);
+
+            // TEMP TO REMOVE JUST TO TEST
+            Console.WriteLine("Fase de feitiços!");
+            Console.WriteLine($"{playerList[0].Name} é o teu turno. Que cartas queres jogar?");
+            int index = 1;
+            foreach(ICard c in playerList[0].Hand)
+            {
+                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack = {c.Attack}, Defense = {c.Defense}");
+                index++;
+            }
+            int choice = Convert.ToInt32(Console.ReadLine());
+            ICard p1Card = playerList[0].Hand.ElementAt(choice-1);
+            
+
+            Console.WriteLine($"{playerList[1].Name} é o teu turno. Que cartas queres jogar?");
+            index = 1;
+            foreach(ICard c in playerList[1].Hand)
+            {
+                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack = {c.Attack}, Defense = {c.Defense}");
+                index++;
+            }
+            choice = Convert.ToInt32(Console.ReadLine());
+            ICard p2Card = playerList[1].Hand.ElementAt(choice-1);
+            
+
+            if(p1Card.Attack > p2Card.Defense)
+                Console.WriteLine($"{p1Card.Name} wins!");
+            else
+                Console.WriteLine($"{p2Card.Name} resists!");
         }
 
         /// <summary>
