@@ -113,5 +113,25 @@ namespace CardGame
             updatedHand.Add(card);
             Hand = updatedHand;         
         }
+
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+            if(Health < 0)
+                Health = 0;
+        }
+
+        public ICard GetCardFromTopOfDeck()
+        {
+            if (Deck.Count() == 0)
+            {
+                return null;
+            }
+
+            ICard card = Deck.First();
+            RemoveCardFromDeck(card);
+
+            return card;
+        }
     }
 }

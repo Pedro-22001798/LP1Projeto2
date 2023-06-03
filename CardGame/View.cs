@@ -137,7 +137,8 @@ namespace CardGame
             Console.WriteLine("1 - View current cards on table.");
             Console.WriteLine("2 - Choose more cards");
             Console.WriteLine("3 - Remove cards from table");
-            Console.WriteLine("4 - Quit");
+            Console.WriteLine("4 - Get card from deck.");
+            Console.WriteLine("5 - Quit");
 
             int option;
             bool isValidOption = false;
@@ -148,7 +149,7 @@ namespace CardGame
                 {
                     Console.WriteLine("Invalid option. Please choose a valid number.");
                 }
-                else if (option < 0 || option > 4)
+                else if (option < 0 || option > 5)
                 {
                     Console.WriteLine("Invalid option. Please choose from 0 to 4.");
                 }
@@ -217,6 +218,14 @@ namespace CardGame
             while (!isValidOption);
 
             return option;
+        }
+
+        public void CantGetCardFromDeck(bool deck)
+        {
+            if(!deck)
+                Console.WriteLine("Can't get a card from your deck. Your deck has 0 cards.");
+            else
+                Console.WriteLine("Can't get any more cards from your deck. Your hand already has 6.");
         }
     }
 }

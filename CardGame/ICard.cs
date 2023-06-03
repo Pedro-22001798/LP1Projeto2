@@ -26,5 +26,8 @@ namespace CardGame
         /// Defense property to view the card's defense.
         /// </summary>
         int Defense{get;}
+
+        void TakeDamage(int damage);
+        void ReduceDamange(int damage);
     }
 }

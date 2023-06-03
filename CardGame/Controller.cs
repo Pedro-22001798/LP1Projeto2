@@ -79,10 +79,7 @@ namespace CardGame
 
                 view.ShowGamePhase("Attack");
 
-                for(int i = 0; i < playerList.Count; i++)
-                {
-                    AttackGamePhase(playerList[i]);
-                }
+                AttackGamePhase();
 
                 foreach (IPlayer p in playerList)
                 {
@@ -120,24 +117,63 @@ namespace CardGame
             {
                 view.ShowPlayerStats(player);
                 option = view.ShowSpellPhaseSelection();
-                if(option != 4)
+                if(option != 5)
                 {
                     playingHand = SpellPhaseOptionTreatment(option,playingHand,player);
                 }
-                else if(option == 4)
+                else if(option == 5)
                 {
                     gameOver = true;
                     break;
                 }
             }
-            while(option != 0 && option != 4);
+            while(option != 0 && option != 5);
 
             return playingHand;
         }
 
-        public void AttackGamePhase(IPlayer player)
+        public void AttackGamePhase()
         {
-            // Eventually ask for quit here aswell
+            IEnumerable<ICard> player1PlayingHand = playerList[0].PlayingHand;
+            IEnumerable<ICard> player2PlayingHand = playerList[1].PlayingHand;
+
+            while (player1PlayingHand.Any() && player2PlayingHand.Any())
+            {
+                ICard player1Card = player1PlayingHand.First();
+                ICard player2Card = player2PlayingHand.First();
+
+                player2Card.TakeDamage(player1Card.Attack);
+                player1Card.TakeDamage(player2Card.Attack);
+
+                if (player2Card.Defense <= 0)
+                {
+                    player2PlayingHand = player2PlayingHand.Skip(1);
+                }
+
+                if (player1Card.Defense <= 0)
+                {
+                    player1PlayingHand = player1PlayingHand.Skip(1);
+                }
+            }
+
+            if (player1PlayingHand.Any())
+            {
+                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
+                playerList[1].TakeDamage(totalAttack);
+                player1PlayingHand = Enumerable.Empty<ICard>();
+            }
+
+            if (player2PlayingHand.Any())
+            {
+                int totalAttack = player2PlayingHand.Sum(card => card.Attack);
+                playerList[0].TakeDamage(totalAttack);
+                player2PlayingHand = Enumerable.Empty<ICard>();
+            }
+
+            foreach (IPlayer p in playerList)
+            {
+                view.ShowPlayerStats(p);
+            }
         }
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
@@ -172,6 +208,23 @@ namespace CardGame
                             player.GetMana(card.Cost);
                             player.AddCardToHand(card);
                         }
+                    }
+                    break;
+                case 4:
+                    if(player.Hand.Count() + hand.Count() < 6 && player.Deck.Count() > 0)
+                    {
+                        ICard card = player.GetCardFromTopOfDeck();
+                        if(card != null)
+                        {
+                            player.AddCardToHand(card);
+                        }
+                    }
+                    else
+                    {
+                        if(player.Hand.Count() + hand.Count() == 6)
+                            view.CantGetCardFromDeck(true);
+                        if(player.Deck.Count() == 0)
+                            view.CantGetCardFromDeck(false);
                     }
                     break;
             }

@@ -26,5 +26,19 @@ namespace CardGame
             this.Attack = attack;
             this.Defense = defense;
         }
+
+        public void TakeDamage(int damage)
+        {
+            Defense -= damage;
+            if(Defense < 0)
+                Defense = 0;
+        }
+
+        public void ReduceDamange(int damage)
+        {
+            Attack -= damage;
+            if(Attack < 0)
+                Attack = 0;
+        }
     }
 }
