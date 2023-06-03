@@ -32,6 +32,8 @@ namespace CardGame
         /// </summary>
         public IEnumerable<ICard> Hand {get; private set;}
 
+        public IEnumerable<ICard> PlayingHand {get; private set;}
+
         /// <summary>
         /// Player constructor, called everytime a new player is created.
         /// </summary>
@@ -62,6 +64,11 @@ namespace CardGame
             this.Hand = hand;
         }
 
+        public void DefinePlayingHand(IEnumerable<ICard> playingHand)
+        {
+            this.PlayingHand = playingHand;
+        }
+
         public void DefineMana(int mana)
         {
             this.Mana = mana;
@@ -75,10 +82,14 @@ namespace CardGame
             }
         }
 
+        public void GetMana(int mana)
+        {
+            this.Mana = this.Mana + mana;
+        }
+
         public void RemoveCardFromDeck(ICard card)
         {
             List<ICard> updatedDeck = new List<ICard>(Deck);
-
             if (updatedDeck.Contains(card))
             {
                 updatedDeck.Remove(card);
@@ -89,12 +100,18 @@ namespace CardGame
         public void RemoveCardFromHand(ICard card)
         {
             List<ICard> updatedHand = new List<ICard>(Hand);
-
             if (updatedHand.Contains(card))
             {
                 updatedHand.Remove(card);
                 Hand = updatedHand;
             }
+        }
+
+        public void AddCardToHand(ICard card)
+        {
+            List<ICard> updatedHand = new List<ICard>(Hand);
+            updatedHand.Add(card);
+            Hand = updatedHand;         
         }
     }
 }

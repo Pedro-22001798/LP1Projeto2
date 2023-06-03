@@ -79,7 +79,7 @@ namespace CardGame
             }
         }
 
-        public ICard ShowHand(IPlayer player)
+        public int ShowHand(IPlayer player)
         {
             IEnumerable<ICard> hand = player.Hand;
             int index = 1;
@@ -88,6 +88,7 @@ namespace CardGame
                 Console.WriteLine($"{index} : {c.Name} - Attack = {c.Attack}, Defense = {c.Defense} and Cost = {c.Cost}.");
                 index++;
             }
+            Console.WriteLine($"{index} : Leave.");
             Console.WriteLine("What card do you want to choose?");
 
             int option;
@@ -98,13 +99,20 @@ namespace CardGame
                 {
                     Console.WriteLine("Invalid option. Please choose a valid index.");
                 }
-                else if (option < 0 || option > hand.Count())
+                else if (option < 1 || option > hand.Count() + 1)
                 {
-                    Console.WriteLine($"Invalid option. Please choose from 0 to {hand.Count()}.");
+                    Console.WriteLine($"Invalid option. Please choose from 1 to {hand.Count() + 1}.");
                 }
-                else if(hand.ElementAt(option-1).Cost > player.Mana)
+                else if(option != index)
                 {
-                    Console.WriteLine("Invalid option. You don't have enought mana.");
+                    if(hand.ElementAt(option-1).Cost > player.Mana)
+                    {
+                        Console.WriteLine("Invalid option. You don't have enought mana.");
+                    }
+                    else
+                    {
+                        isValidOption = true;
+                    }
                 }
                 else
                 {
@@ -113,7 +121,7 @@ namespace CardGame
             }
             while (!isValidOption);
 
-            return hand.ElementAt(option-1);
+            return option;
         }
 
         public void ShowPlayerStats(IPlayer player)
@@ -128,6 +136,8 @@ namespace CardGame
             Console.WriteLine("0 - End turn.");
             Console.WriteLine("1 - View current cards on table.");
             Console.WriteLine("2 - Choose more cards");
+            Console.WriteLine("3 - Remove cards from table");
+            Console.WriteLine("4 - Quit");
 
             int option;
             bool isValidOption = false;
@@ -138,9 +148,66 @@ namespace CardGame
                 {
                     Console.WriteLine("Invalid option. Please choose a valid number.");
                 }
-                else if (option < 0 || option > 2)
+                else if (option < 0 || option > 4)
                 {
-                    Console.WriteLine("Invalid option. Please choose from 0 to 2.");
+                    Console.WriteLine("Invalid option. Please choose from 0 to 4.");
+                }
+                else
+                {
+                    isValidOption = true;
+                }
+            }
+            while (!isValidOption);
+
+            return option;
+        }
+
+        public bool AskForQuit(IPlayer player)
+        {
+            string input;
+            bool isValidInput = false;
+            do
+            {
+                Console.WriteLine($"{player.Name}, do you want to quit the game? (Yes/No)");
+
+                input = Console.ReadLine()?.Trim().ToLower();
+
+                if (input == "yes" || input == "no")
+                {
+                    isValidInput = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input! Please enter 'Yes' or 'No'.");
+                }
+            }
+            while (!isValidInput);
+            return input == "yes";
+        }
+
+        public int ShowPlayingCardsToRemove(IEnumerable<ICard> playingcards)
+        {
+            Console.WriteLine("Playing Hand:");
+            int index = 1;
+            foreach(ICard c in playingcards)
+            {
+                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}.");
+                index++;
+            }
+            Console.WriteLine($"{index} = Leave.");
+            Console.WriteLine("Which one do you want to remove?");
+
+            int option;
+            bool isValidOption = false;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out option))
+                {
+                    Console.WriteLine("Invalid option. Please choose a valid number.");
+                }
+                else if (option < 1 || option > playingcards.Count()+1)
+                {
+                    Console.WriteLine($"Invalid option. Please choose from 0 to {playingcards.Count()+1}.");
                 }
                 else
                 {

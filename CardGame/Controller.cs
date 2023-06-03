@@ -13,6 +13,7 @@ namespace CardGame
         int maxCard = 20;
         int initialCards = 6;
         int turn = 0;
+        bool gameOver;
 
         /// <summary>
         /// Controller constructor, called everytime a controller is created.
@@ -38,8 +39,22 @@ namespace CardGame
                 CreatePlayer(s);
             }
 
+            gameOver = false;
+
             do
             {
+                foreach(IPlayer p in playerList)
+                {
+                    if(p.Health == 0)
+                    {
+                        gameOver = true;
+                    }
+                    else if(p.Deck.Count() == 0)
+                    {
+                        gameOver = true;
+                    }
+                }
+
                 turn++;
                 if(turn < 5)
                 {
@@ -56,10 +71,30 @@ namespace CardGame
 
                 for(int i = 0; i < playerList.Count; i++)
                 {
-                    SpellPhaseGame(playerList[i]);
+                    playerList[i].DefinePlayingHand(SpellPhaseGame(playerList[i]));
+                }
+
+                if(gameOver)
+                    break;                
+
+                view.ShowGamePhase("Attack");
+
+                for(int i = 0; i < playerList.Count; i++)
+                {
+                    AttackGamePhase(playerList[i]);
+                }
+
+                foreach (IPlayer p in playerList)
+                {
+                    if (view.AskForQuit(p))
+                    {
+                        gameOver = true;
+                        break;
+                    }
                 }
             }
-            while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].Deck.Count() > 0 && playerList[1].Deck.Count() > 0);
+            while(!gameOver);
+            //while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].Deck.Count() > 0 && playerList[1].Deck.Count() > 0);
         }
 
         /// <summary>
@@ -71,10 +106,12 @@ namespace CardGame
             IPlayer player = new Player(name);
             player.DefineDeck(deckCreator.CreateRandomDeck());
             player.DefineHand(deckCreator.GetInitialHand(player.Deck));
+            List<ICard> playingHand = new List<ICard>();
+            player.DefinePlayingHand(playingHand);
             playerList.Add(player);
         }
 
-        public void SpellPhaseGame(IPlayer player)
+        public List<ICard> SpellPhaseGame(IPlayer player)
         {
             int option = 0;
             List<ICard> playingHand = new List<ICard>();
@@ -83,9 +120,24 @@ namespace CardGame
             {
                 view.ShowPlayerStats(player);
                 option = view.ShowSpellPhaseSelection();
-                playingHand = SpellPhaseOptionTreatment(option,playingHand,player);
+                if(option != 4)
+                {
+                    playingHand = SpellPhaseOptionTreatment(option,playingHand,player);
+                }
+                else if(option == 4)
+                {
+                    gameOver = true;
+                    break;
+                }
             }
-            while(option != 0);
+            while(option != 0 && option != 4);
+
+            return playingHand;
+        }
+
+        public void AttackGamePhase(IPlayer player)
+        {
+            // Eventually ask for quit here aswell
         }
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
@@ -97,24 +149,34 @@ namespace CardGame
                     view.ShowPlayingCards(hand);
                     break;
                 case 2:
-                    ICard card = ChoosePlayingCards(player);
-                    if(card != null)
+                    int cardIndex = view.ShowHand(player);
+                    if(cardIndex < player.Hand.Count()+1 && cardIndex > 0)
                     {
-                        hand.Add(card);
-                        player.UseMana(card.Cost);
-                        player.RemoveCardFromHand(card);
+                        ICard card = player.Hand.ElementAt(cardIndex-1);
+                        if(card != null)
+                        {
+                            hand.Add(card);
+                            player.UseMana(card.Cost);
+                            player.RemoveCardFromHand(card);
+                        }
+                    }
+                    break;
+                case 3:
+                    int cardOption = view.ShowPlayingCardsToRemove(hand);
+                    if(cardOption < hand.Count()+1 && cardOption > 0)
+                    {
+                        ICard card = hand.ElementAt(cardOption-1);
+                        if(card != null)
+                        {
+                            hand.Remove(card);
+                            player.GetMana(card.Cost);
+                            player.AddCardToHand(card);
+                        }
                     }
                     break;
             }
 
             return hand;
-        }
-
-        public ICard ChoosePlayingCards(IPlayer player)
-        {
-            int mana = player.Mana;
-            ICard card = view.ShowHand(player);
-            return card;
         }
     }
 }
