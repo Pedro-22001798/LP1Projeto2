@@ -68,40 +68,88 @@ namespace CardGame
             }
         }
 
-        public int ShowHand(IEnumerable<ICard> hand, int mana)
-        {
-            ShowFirstOption();
-            int index = 1;
-            int tempMana = mana;
-            foreach(ICard c in hand)
-            {
-                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}");
-                index++;
-            }
-            int option = Convert.ToInt32(Console.ReadLine());
-            while(option > hand.Count() || option < 0 || hand.ElementAt(option).Cost > tempMana)
-            {
-                Console.WriteLine("Invalid option. Choose another one.");
-                option = Convert.ToInt32(Console.ReadLine());    
-            }
-            tempMana = tempMana - hand.ElementAt(option).Cost;
-            return option;
-        }
-
-        public void ShowFirstOption()
-        {
-            Console.WriteLine("0 = End Turn");
-        }
-
         public void ShowPlayingCards(IEnumerable<ICard> playingcards)
         {
             Console.WriteLine("Playing Hand:");
             int index = 1;
             foreach(ICard c in playingcards)
             {
-                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}");
+                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}.");
                 index++;
             }
+        }
+
+        public ICard ShowHand(IPlayer player)
+        {
+            IEnumerable<ICard> hand = player.Hand;
+            int index = 1;
+            foreach(ICard c in hand)
+            {
+                Console.WriteLine($"{index} : {c.Name} - Attack = {c.Attack}, Defense = {c.Defense} and Cost = {c.Cost}.");
+                index++;
+            }
+            Console.WriteLine("What card do you want to choose?");
+
+            int option;
+            bool isValidOption = false;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out option))
+                {
+                    Console.WriteLine("Invalid option. Please choose a valid index.");
+                }
+                else if (option < 0 || option > hand.Count())
+                {
+                    Console.WriteLine($"Invalid option. Please choose from 0 to {hand.Count()}.");
+                }
+                else if(hand.ElementAt(option-1).Cost > player.Mana)
+                {
+                    Console.WriteLine("Invalid option. You don't have enought mana.");
+                }
+                else
+                {
+                    isValidOption = true;
+                }
+            }
+            while (!isValidOption);
+
+            return hand.ElementAt(option-1);
+        }
+
+        public void ShowPlayerStats(IPlayer player)
+        {
+            Console.WriteLine("----------------------------------------------------------------------------");
+            Console.WriteLine($"{player.Name} stats -> Health = {player.Health}, Mana = {player.Mana}");
+            Console.WriteLine("----------------------------------------------------------------------------");
+        }
+
+        public int ShowSpellPhaseSelection()
+        {
+            Console.WriteLine("0 - End turn.");
+            Console.WriteLine("1 - View current cards on table.");
+            Console.WriteLine("2 - Choose more cards");
+
+            int option;
+            bool isValidOption = false;
+
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out option))
+                {
+                    Console.WriteLine("Invalid option. Please choose a valid number.");
+                }
+                else if (option < 0 || option > 2)
+                {
+                    Console.WriteLine("Invalid option. Please choose from 0 to 2.");
+                }
+                else
+                {
+                    isValidOption = true;
+                }
+            }
+            while (!isValidOption);
+
+            return option;
         }
     }
 }

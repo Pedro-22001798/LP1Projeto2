@@ -74,5 +74,27 @@ namespace CardGame
                 this.Mana = this.Mana - mana;
             }
         }
+
+        public void RemoveCardFromDeck(ICard card)
+        {
+            List<ICard> updatedDeck = new List<ICard>(Deck);
+
+            if (updatedDeck.Contains(card))
+            {
+                updatedDeck.Remove(card);
+                Deck = updatedDeck;
+            }
+        }
+
+        public void RemoveCardFromHand(ICard card)
+        {
+            List<ICard> updatedHand = new List<ICard>(Hand);
+
+            if (updatedHand.Contains(card))
+            {
+                updatedHand.Remove(card);
+                Hand = updatedHand;
+            }
+        }
     }
 }

@@ -16,5 +16,7 @@ namespace CardGame
         void DefineHand(IEnumerable<ICard> hand);
         void UseMana(int mana);
         void DefineMana(int mana);
+        void RemoveCardFromDeck(ICard card);
+        void RemoveCardFromHand(ICard card);
     }
 }
