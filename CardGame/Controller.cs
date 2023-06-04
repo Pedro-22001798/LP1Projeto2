@@ -154,19 +154,37 @@ namespace CardGame
                 player2Card.TakeDamage(player1Damage);
                 player1Card.TakeDamage(player2Damage);
 
-                if (player2Card.Defense <= 0)
+                if (player2Defense <= 0)
                 {
-                    int extraDamage = Math.Max(player1Attack - player2Defense, 0);
-                    playerList[1].TakeDamage(extraDamage);
+                    int player2ExtraDamage = Math.Max(player2Defense - player1Attack, 0);
+                    playerList[1].TakeDamage(player2ExtraDamage);
                     player2PlayingHand = player2PlayingHand.Skip(1);
                 }
 
-                if (player1Card.Defense <= 0)
+                if (player1Defense <= 0)
                 {
-                    int extraDamage = Math.Max(player2Attack - player1Defense, 0);
-                    playerList[0].TakeDamage(extraDamage);
+                    int player1ExtraDamage = Math.Max(player1Defense - player2Attack, 0);
+                    playerList[0].TakeDamage(player1ExtraDamage);
                     player1PlayingHand = player1PlayingHand.Skip(1);
                 }
+
+                // Verificar se há mais cartas em jogo
+                player1PlayingHand = player1PlayingHand.Skip(1);
+                player2PlayingHand = player2PlayingHand.Skip(1);
+            }
+
+            if (player1PlayingHand.Any())
+            {
+                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
+                playerList[1].TakeDamage(totalAttack);
+                player1PlayingHand = Enumerable.Empty<ICard>();
+            }
+
+            if (player2PlayingHand.Any())
+            {
+                int totalAttack = player2PlayingHand.Sum(card => card.Attack);
+                playerList[0].TakeDamage(totalAttack);
+                player2PlayingHand = Enumerable.Empty<ICard>();
             }
 
             foreach (IPlayer p in playerList)
@@ -174,6 +192,7 @@ namespace CardGame
                 view.ShowPlayerStats(p);
             }
         }
+
 
 
 
