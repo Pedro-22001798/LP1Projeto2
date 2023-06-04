@@ -29,10 +29,10 @@ Inside of it we created the class deckCreator that´s part of our Model and is r
 Another one called controller that represents our Controller, receives information from the DeckCreator class and is used as the game engine
 controlling every phase of the game from the start to the finish.
 
-And finnaly one called view for our View that receives information from the Controller about what things changed in the Model and than displays
+And finally one called view for our View that receives information from the Controller about what things changed in the Model and than displays
 them in the interface for the players to see.
 
-We will go more in death in each one of these later on.
+We will go more in depth in each one of these later on.
 
 
 Before our Controller class starts running the game we have to create the card deck, we can´t play cards without one.
