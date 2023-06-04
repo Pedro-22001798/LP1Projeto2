@@ -158,15 +158,17 @@ namespace CardGame
                 {
                     int extraDamage = Math.Max(player1Attack - player2Defense, 0);
                     playerList[1].TakeDamage(extraDamage);
-                    player2PlayingHand = player2PlayingHand.Skip(1);
                 }
 
                 if (player1Card.Defense <= 0)
                 {
                     int extraDamage = Math.Max(player2Attack - player1Defense, 0);
                     playerList[0].TakeDamage(extraDamage);
-                    player1PlayingHand = player1PlayingHand.Skip(1);
                 }
+
+                player2PlayingHand = player2PlayingHand.Skip(1);
+                player1PlayingHand = player1PlayingHand.Skip(1);
+
             }
 
             foreach (IPlayer p in playerList)
