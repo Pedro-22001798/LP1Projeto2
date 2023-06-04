@@ -28,6 +28,6 @@ namespace CardGame
         int Defense{get;}
 
         void TakeDamage(int damage);
-        void ReduceDamange(int damage);
+        void ReduceDamage(int damage);
     }
 }

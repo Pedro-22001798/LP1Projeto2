@@ -142,32 +142,31 @@ namespace CardGame
                 ICard player1Card = player1PlayingHand.First();
                 ICard player2Card = player2PlayingHand.First();
 
-                player2Card.TakeDamage(player1Card.Attack);
-                player1Card.TakeDamage(player2Card.Attack);
+                int player1Attack = player1Card.Attack;
+                int player2Attack = player2Card.Attack;
+
+                int player1Defense = player1Card.Defense;
+                int player2Defense = player2Card.Defense;
+
+                int player1Damage = Math.Max(player1Attack - player2Defense, 0);
+                int player2Damage = Math.Max(player2Attack - player1Defense, 0);
+
+                player2Card.TakeDamage(player1Damage);
+                player1Card.TakeDamage(player2Damage);
 
                 if (player2Card.Defense <= 0)
                 {
+                    int extraDamage = Math.Max(player1Attack - player2Defense, 0);
+                    playerList[1].TakeDamage(extraDamage);
                     player2PlayingHand = player2PlayingHand.Skip(1);
                 }
 
                 if (player1Card.Defense <= 0)
                 {
+                    int extraDamage = Math.Max(player2Attack - player1Defense, 0);
+                    playerList[0].TakeDamage(extraDamage);
                     player1PlayingHand = player1PlayingHand.Skip(1);
                 }
-            }
-
-            if (player1PlayingHand.Any())
-            {
-                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
-                playerList[1].TakeDamage(totalAttack);
-                player1PlayingHand = Enumerable.Empty<ICard>();
-            }
-
-            if (player2PlayingHand.Any())
-            {
-                int totalAttack = player2PlayingHand.Sum(card => card.Attack);
-                playerList[0].TakeDamage(totalAttack);
-                player2PlayingHand = Enumerable.Empty<ICard>();
             }
 
             foreach (IPlayer p in playerList)
@@ -175,6 +174,11 @@ namespace CardGame
                 view.ShowPlayerStats(p);
             }
         }
+
+
+
+
+
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
         {

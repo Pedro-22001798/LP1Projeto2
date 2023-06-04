@@ -34,7 +34,7 @@ namespace CardGame
                 Defense = 0;
         }
 
-        public void ReduceDamange(int damage)
+        public void ReduceDamage(int damage)
         {
             Attack -= damage;
             if(Attack < 0)
