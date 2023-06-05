@@ -171,16 +171,25 @@ namespace CardGame
 
             }
 
+            if (player1PlayingHand.Any())
+            {
+                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
+                playerList[1].TakeDamage(totalAttack);
+                player1PlayingHand = Enumerable.Empty<ICard>();
+            }
+
+            if (player2PlayingHand.Any())
+            {
+                int totalAttack = player2PlayingHand.Sum(card => card.Attack);
+                playerList[0].TakeDamage(totalAttack);
+                player2PlayingHand = Enumerable.Empty<ICard>();
+            }
+
             foreach (IPlayer p in playerList)
             {
                 view.ShowPlayerStats(p);
             }
         }
-
-
-
-
-
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
         {
