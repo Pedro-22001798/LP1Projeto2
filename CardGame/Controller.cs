@@ -148,63 +148,69 @@ namespace CardGame
                 int player1Defense = player1Card.Defense;
                 int player2Defense = player2Card.Defense;
 
-                int player1Damage = Math.Max(player1Attack - player2Defense, 0);
-                int player2Damage = Math.Max(player2Attack - player1Defense, 0);
+                // Deduct defense from the opposing player's attack
+                player1Defense -= player2Attack;
+                player2Defense -= player1Attack;
 
-                player2Card.TakeDamage(player1Damage);
-                player1Card.TakeDamage(player2Damage);
-
-                if (player2Card.Defense <= 0)
+                // Check if either player's defense reached zero or below
+                if (player1Defense <= 0)
                 {
-                    int extraDamage = Math.Max(player1Attack - player2Defense, 0);
-                    player2PlayingHand.RemoveAt(0);
-                    if (player2PlayingHand.Any())
-                    {
-                        player2PlayingHand.First().TakeDamage(extraDamage);
-                    }
-                    else
-                    {
-                        playerList[1].TakeDamage(extraDamage);
-                    }
-                }
-
-                if (player1Card.Defense <= 0)
-                {
-                    int extraDamage = Math.Max(player2Attack - player1Defense, 0);
                     player1PlayingHand.RemoveAt(0);
                     if (player1PlayingHand.Any())
                     {
-                        player1PlayingHand.First().TakeDamage(extraDamage);
+                        player1Defense = 0; // Reset defense for the next card in play
                     }
                     else
                     {
-                        playerList[0].TakeDamage(extraDamage);
+                        playerList[0].TakeDamage(Math.Abs(player1Defense)); // Deduct remaining damage from player's HP
+                        player1Defense = 0; // Reset defense to prevent negative values
                     }
                 }
+
+                if (player2Defense <= 0)
+                {
+                    player2PlayingHand.RemoveAt(0);
+                    if (player2PlayingHand.Any())
+                    {
+                        player2Defense = 0; // Reset defense for the next card in play
+                    }
+                    else
+                    {
+                        playerList[1].TakeDamage(Math.Abs(player2Defense)); // Deduct remaining damage from player's HP
+                        player2Defense = 0; // Reset defense to prevent negative values
+                    }
+                }
+
+                // Update defense values for the cards in play
+                player1Card.Defense = player1Defense;
+                player2Card.Defense = player2Defense;
 
                 player2PlayingHand = player2PlayingHand.Skip(1).ToList();
                 player1PlayingHand = player1PlayingHand.Skip(1).ToList();
             }
 
-            if (player1PlayingHand.Any())
-            {
-                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
-                playerList[1].TakeDamage(totalAttack);
-                player1PlayingHand.Clear();
-            }
-
-            if (player2PlayingHand.Any())
+            // Reduce the HP of the player with no cards left in play
+            if (player1PlayingHand.Count == 0)
             {
                 int totalAttack = player2PlayingHand.Sum(card => card.Attack);
                 playerList[0].TakeDamage(totalAttack);
-                player2PlayingHand.Clear();
             }
+            else if (player2PlayingHand.Count == 0)
+            {
+                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
+                playerList[1].TakeDamage(totalAttack);
+            }
+
+            // Discard the cards from the game
+            player1PlayingHand.Clear();
+            player2PlayingHand.Clear();
 
             foreach (IPlayer p in playerList)
             {
                 view.ShowPlayerStats(p);
             }
         }
+
 
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
