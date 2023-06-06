@@ -38,6 +38,7 @@ namespace CardGame
             Console.WriteLine("What's the name of player 2");
             string name2 = Console.ReadLine();
             yield return name2;
+            Console.Clear();
             yield break;
         }
 
@@ -95,7 +96,7 @@ namespace CardGame
 {
     IEnumerable<ICard> hand = player.Hand;
     int index = 1;
-
+    
     Console.WriteLine("Your Hand:");
     int maxCardNameLength = hand.Max(card => card.Name.Length);
     foreach (ICard card in hand)
