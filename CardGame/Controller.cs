@@ -47,6 +47,7 @@ namespace CardGame
             this.view = view;
             view.BeginGame();
             IEnumerable<string> playersNames = view.ListPlayers();
+            //Creates players
             foreach(string s in playersNames)
             {
                 CreatePlayer(s);
@@ -54,8 +55,10 @@ namespace CardGame
 
             gameOver = false;
 
+            //Game loop, while gameover = false
             do
             {
+                //Checks if the game is over or not on every turn
                 foreach(IPlayer p in playerList)
                 {
                     if(p.Health == 0)
@@ -67,19 +70,22 @@ namespace CardGame
                         gameOver = true;
                     }
                 }
-
+                //Increments one turn
                 turn++;
+                //Sets the player's mana to the same number as turn's if bellow 5
                 if(turn < 5)
                 {
                     foreach(Player p in playerList)
                         p.DefineMana(turn);
                 }
+                //Sets the player's mana to 5 for next turns
                 else
                 {
                     foreach(Player p in playerList)
                         p.DefineMana(5);
                 }
 
+                //Initiates Spell Phase
                 view.ShowGamePhase("Spells");
 
                 for(int i = 0; i < playerList.Count; i++)
@@ -90,6 +96,7 @@ namespace CardGame
                 if(gameOver)
                     break;                
 
+                //Initiates Attack Phase
                 view.ShowGamePhase("Attack");
 
                 if(playerList[0].PlayingHand.Any() || playerList[1].PlayingHand.Any())
@@ -102,7 +109,6 @@ namespace CardGame
                 
             }
             while(!gameOver);
-            //while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].Deck.Count() > 0 && playerList[1].Deck.Count() > 0);
         }
 
         /// <summary>
