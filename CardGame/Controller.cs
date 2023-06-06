@@ -143,77 +143,39 @@ namespace CardGame
                 ICard player1Card = player1PlayingHand.First();
                 ICard player2Card = player2PlayingHand.First();
 
-                int player1Attack = player1Card.Attack;
-                int player2Attack = player2Card.Attack;
+                player1Card.TakeDamage(player2Card.Attack);
+                player2Card.TakeDamage(player1Card.Attack);
 
-                int player1Defense = player1Card.Defense;
-                int player2Defense = player2Card.Defense;
-
-                int extraDamageToCard1 = player2Attack - player1Defense;
-                int extraDamageToCard2 = player1Attack - player2Defense;
-
-                // Deduct defense from the opposing player's attack
-                player1Defense -= player2Attack;
-                player2Defense -= player1Attack;
-
-                if (player1Defense <= 0 && player2Defense > 0 && player1PlayingHand.Count > 1)
+                if(player1Card.Defense <= 0)
                 {
-                    player1PlayingHand.RemoveAt(0);
-
-                    ICard nextPlayer1Card = player1PlayingHand.First();
-                    if (extraDamageToCard1 > 0)
+                    if(player1Card.Defense < 0)
                     {
-                        nextPlayer1Card.TakeDamage(extraDamageToCard1);
+                        player2Card.ReduceDamage(-player1Card.Defense);
                     }
-                }
-                else if(player1Defense <= 0 && player2Defense > 0 && player1PlayingHand.Count == 1)
-                {
                     player1PlayingHand.RemoveAt(0);
+                }
 
-                    if (extraDamageToCard1 > 0)
+                if(player2Card.Defense <= 0)
+                {
+                    if(player2Card.Defense < 0)
                     {
-                        playerList[0].TakeDamage(extraDamageToCard1);
+                        player1Card.ReduceDamage(-player2Card.Defense);
                     }
-                }
-
-                if (player2Defense <= 0 && player1Defense > 0 && player2PlayingHand.Count > 1)
-                {
-                    player2PlayingHand.RemoveAt(0);
-
-                    ICard nextPlayer2Card = player2PlayingHand.First();
-                    if (extraDamageToCard2 > 0)
-                    {
-                        nextPlayer2Card.TakeDamage(extraDamageToCard2);
-                    }
-                }
-                else if(player2Defense <= 0 && player1Defense > 0 && player2PlayingHand.Count == 1)
-                {
-                    player2PlayingHand.RemoveAt(0);
-
-                    if (extraDamageToCard2 > 0)
-                    {
-                        playerList[1].TakeDamage(extraDamageToCard2);
-                    }                    
-                }
-
-                if (player1Defense <= 0 && player2Defense <= 0)
-                {
-                    player1PlayingHand.RemoveAt(0);
-                    player2PlayingHand.RemoveAt(0);
+                    player2PlayingHand.RemoveAt(0);   
                 }
             }
 
-            foreach (ICard card in player1PlayingHand)
+            if (player1PlayingHand.Any())
             {
-                int totalAttack = card.Attack;
+                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
                 playerList[1].TakeDamage(totalAttack);
             }
 
-            foreach (ICard card in player2PlayingHand)
+            if (player2PlayingHand.Any())
             {
-                int totalAttack = card.Attack;
+                int totalAttack = player2PlayingHand.Sum(card => card.Attack);
                 playerList[0].TakeDamage(totalAttack);
-            }
+            }            
 
             player1PlayingHand.Clear();
             player2PlayingHand.Clear();
@@ -223,9 +185,6 @@ namespace CardGame
                 view.ShowPlayerStats(p);
             }
         }
-
-
-
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
         {

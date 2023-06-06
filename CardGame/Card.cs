@@ -30,15 +30,11 @@ namespace CardGame
         public void TakeDamage(int damage)
         {
             Defense -= damage;
-            if(Defense < 0)
-                Defense = 0;
         }
 
         public void ReduceDamage(int damage)
         {
             Attack -= damage;
-            if(Attack < 0)
-                Attack = 0;
         }
 
         public void SetDefense(int defense)
