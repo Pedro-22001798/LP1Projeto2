@@ -30,6 +30,7 @@ namespace CardGame
             Console.WriteLine(" - Enter 4 to get a card from your deck (if deck not empty and hand has < 6 cards)\n - Enter 5 to surrender and end the game.");
             Console.WriteLine("During the attack phase the cards chosen by the players will fight and the damage will be calculated .");
             Console.WriteLine("Play continues until one player's health reaches zero, if a player surrenders or if it runs out of cards.\n\n");
+            Console.WriteLine("Use full screen or widen the console window for a better experience");
             Console.WriteLine("Enjoy playing Tragic: The Reckoning card game!");
             Console.Write("\nPress any key to continue...");
             Console.ReadKey(true);
