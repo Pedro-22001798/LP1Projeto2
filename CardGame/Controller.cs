@@ -153,61 +153,87 @@ namespace CardGame
                 player1Defense -= player2Attack;
                 player2Defense -= player1Attack;
 
+                while (player1Defense <= 0 && player2Defense > 0 && player1PlayingHand.Count > 1)
+                {
+                    player1PlayingHand.RemoveAt(0);
+
+                    ICard nextPlayer1Card = player1PlayingHand.First();
+                    int extraDamage = player2Attack - nextPlayer1Card.Defense;
+                    if (extraDamage > 0)
+                    {
+                        nextPlayer1Card.SetDefense(nextPlayer1Card.Defense - extraDamage);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    player1Defense = nextPlayer1Card.Defense;
+                }
+
+                while (player2Defense <= 0 && player1Defense > 0 && player2PlayingHand.Count > 1)
+                {
+                    player2PlayingHand.RemoveAt(0);
+
+                    ICard nextPlayer2Card = player2PlayingHand.First();
+                    int extraDamage = player1Attack - nextPlayer2Card.Defense;
+                    if (extraDamage > 0)
+                    {
+                        nextPlayer2Card.SetDefense(nextPlayer2Card.Defense - extraDamage);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    player2Defense = nextPlayer2Card.Defense;
+                }
+
                 if (player1Defense <= 0 && player2Defense > 0)
                 {
-                    int extraDamage = player2Attack - player1Card.Defense;
-                    Console.WriteLine($"DANO EXTRA PARA DAR NAS CARTAS 1 = {extraDamage}");
                     player2Card.SetDefense(player2Defense);
                     player1PlayingHand.RemoveAt(0);
 
                     if (player1PlayingHand.Any())
                     {
+                        ICard nextPlayer1Card = player1PlayingHand.First();
+                        int extraDamage = player2Attack - nextPlayer1Card.Defense;
                         if (extraDamage > 0)
                         {
-                            ICard nextPlayer1Card = player1PlayingHand.First();
-                            int remainingDefense = nextPlayer1Card.Defense - extraDamage;
-                            if (remainingDefense <= 0)
-                            {
-                                player1PlayingHand.RemoveAt(0);
-                            }
-                            else
-                            {
-                                nextPlayer1Card.SetDefense(remainingDefense);
-                            }
+                            nextPlayer1Card.SetDefense(nextPlayer1Card.Defense - extraDamage);
+                        }
+                        else
+                        {
+                            playerList[1].TakeDamage(-extraDamage);
                         }
                     }
                     else
                     {
-                        playerList[1].TakeDamage(extraDamage);
+                        playerList[1].TakeDamage(-player1Defense);
                     }
                 }
 
                 if (player2Defense <= 0 && player1Defense > 0)
                 {
-                    int extraDamage = player1Attack - player2Card.Defense;
-                    Console.WriteLine($"DANO EXTRA PARA DAR NAS CARTAS 2 = {extraDamage}");
                     player1Card.SetDefense(player1Defense);
                     player2PlayingHand.RemoveAt(0);
 
                     if (player2PlayingHand.Any())
                     {
+                        ICard nextPlayer2Card = player2PlayingHand.First();
+                        int extraDamage = player1Attack - nextPlayer2Card.Defense;
                         if (extraDamage > 0)
                         {
-                            ICard nextPlayer2Card = player2PlayingHand.First();
-                            int remainingDefense = nextPlayer2Card.Defense - extraDamage;
-                            if (remainingDefense <= 0)
-                            {
-                                player2PlayingHand.RemoveAt(0);
-                            }
-                            else
-                            {
-                                nextPlayer2Card.SetDefense(remainingDefense);
-                            }
+                            nextPlayer2Card.SetDefense(nextPlayer2Card.Defense - extraDamage);
+                        }
+                        else
+                        {
+                            playerList[0].TakeDamage(-extraDamage);
                         }
                     }
                     else
                     {
-                        playerList[0].TakeDamage(extraDamage);
+                        playerList[0].TakeDamage(-player2Defense);
                     }
                 }
 
@@ -238,6 +264,7 @@ namespace CardGame
                 view.ShowPlayerStats(p);
             }
         }
+
 
 
 
