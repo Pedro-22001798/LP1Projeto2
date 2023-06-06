@@ -29,21 +29,19 @@ namespace CardGame
             this.ExtraAttack = 0;
         }
 
+        /// <summary>
+        /// Method responsible for dealing damage to the card
+        /// </summary>
+        /// <param name="damage">Dealt damage</param>
         public void TakeDamage(int damage)
         {
             Defense -= damage;
         }
 
-        public void ReduceDamage(int damage)
-        {
-            Attack -= damage;
-        }
-
-        public void SetDefense(int defense)
-        {
-            this.Defense = defense;
-        }
-
+        /// <summary>
+        /// Method responsible for setting the card's new extra damage to be dealt
+        /// </summary>
+        /// <param name="attack">Card's new extra damage</param>
         public void SetExtraAttack(int attack)
         {
             this.ExtraAttack = attack;

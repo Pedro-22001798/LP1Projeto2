@@ -26,12 +26,20 @@ namespace CardGame
         /// Defense property to view the card's defense.
         /// </summary>
         int Defense{get;}
-
+        /// <summary>
+        /// Extra Attack property to view the card's extra attack to be dealt
+        /// </summary>
         int ExtraAttack {get;}
 
+        /// <summary>
+        /// Method responsible for dealing damage to the card
+        /// </summary>
+        /// <param name="damage">Dealt damage</param>
         void TakeDamage(int damage);
-        void ReduceDamage(int damage);
-        void SetDefense(int defense);
+        /// <summary>
+        /// Method responsible for setting the card's new extra attack
+        /// </summary>
+        /// <param name="attack">New Extra Attack</param>
         void SetExtraAttack(int attack);
     }
 }
