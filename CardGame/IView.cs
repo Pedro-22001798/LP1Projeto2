@@ -15,7 +15,7 @@ namespace CardGame
         void ShowPlayerStats(IPlayer player);
         int ShowSpellPhaseSelection();
         int ShowHand(IPlayer player);
-        bool AskForQuit(IPlayer player);
+        bool AskForSurrender(IPlayer player);
         int ShowPlayingCardsToRemove(IEnumerable<ICard> playingcards);
         void CantGetCardFromDeck(bool deck);
     }

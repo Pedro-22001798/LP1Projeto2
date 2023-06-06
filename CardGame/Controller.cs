@@ -116,7 +116,7 @@ namespace CardGame
                 }
                 else if(option == 5)
                 {
-                    if (view.AskForQuit(player))
+                    if (view.AskForSurrender(player))
                     {
                         gameOver = true;
                         break;
