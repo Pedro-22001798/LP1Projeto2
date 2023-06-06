@@ -128,11 +128,11 @@ informing to please enter a non empty name;
 - ShowPlayingCards shows the card along with it´s name and stats ( cost, attack, defense), as well an informing the player to press enter to leave that screen and clear it;
 - ShowHand prints on the console the cards the player has in his hand with every variable of them as well. The player can scroll though his cards using the index numbers from 1 to number of cards on his hand. He than gets asked which card he wants to choose to play. From here there´s 4 possible situations.
 
-Nº1 - the player enters an index that is invalid because it´s not a number. In this case a message informingthe player to choose a valid index is printed;
-Nº2 - the player enters an index that is invalid because it´s either lower than 1 or high than the current number of card he has on his hand. In this case a message informing the player to choose an index between 1 and 
+- Nº1  the player enters an index that is invalid because it´s not a number. In this case a message informingthe player to choose a valid index is printed;
+- Nº2  the player enters an index that is invalid because it´s either lower than 1 or high than the current number of card he has on his hand. In this case a message informing the player to choose an index between 1 and 
 the current number of cards he has on his hand is printed;
-Nº3 - The player doesn´t have enough mana to choose the card he wanted to, a message telling him that he doesn´t have enough mana is than printed;
-Nº4 - the card choosen by the player is valid, nothing gets printed and his option is returned;
+- Nº3 The player doesn´t have enough mana to choose the card he wanted to, a message telling him that he doesn´t have enough mana is than printed;
+- Nº4 the card choosen by the player is valid, nothing gets printed and his option is returned;
 
 - ShowPlayerStats on the console shows the player name followed by his Health and Mana;
 - ShowSpellhaseSelection shows the available options from 0 - 5 that the player can choose, these being:
@@ -145,18 +145,18 @@ Nº4 - the card choosen by the player is valid, nothing gets printed and his opt
 
 We will than check if the input of the user is valid and 3 options can happens.
 
-Nº1 - the player enters an invalid option because it´s not a number. This will cause the code to write on the console that the number is invalid.
-Nº2 - the payer enters an invalid option because it´s a number but it´s either lower than 0 or higher than 5. This will cause the code to write informing the player to input a number between 0 - 5;
-Nº3 - the user input is valid and the console text will clear;
+- Nº1  the player enters an invalid option because it´s not a number. This will cause the code to write on the console that the number is invalid.
+- Nº2  the payer enters an invalid option because it´s a number but it´s either lower than 0 or higher than 5. This will cause the code to write informing the player to input a number between 0 - 5;
+- Nº3  the user input is valid and the console text will clear;
 
 - AskForSurrender when the player chooses the surrender option a text will print asking if he´s sure he wants to do it and to confirm it or not by typing Yes or No. Yes will return true and the player surrenders while no 
 return false and the game resumes. If the user input was not Yes or No than a message will appear on the console that the input was invalid and to please only use Yes or No;
 - ShowPlayingCardsToRemove prints the card along with it´s name, cost, attack and defense values and asks which card index does the player want to remove. The player can scroll though his cards using the index numbers from 1 to number of cards on his hand. He than gets asked which card he wants to choose to play. From here there´s 3 possible options.
 
-Nº1 - the player enters an index that is invalid because it´s not a number. In this case a message informingthe player to choose a valid index is printed;
-Nº2 - the player enters an index that is invalid because it´s either lower than 1 or high than the current number of card he has on his hand. In this case a message informing the player to choose an index between 1 and 
+- Nº1  the player enters an index that is invalid because it´s not a number. In this case a message informingthe player to choose a valid index is printed;
+- Nº2  the player enters an index that is invalid because it´s either lower than 1 or high than the current number of card he has on his hand. In this case a message informing the player to choose an index between 1 and 
 the current number of cards he has on his hand is printed;
-Nº3 - the card choosen by the player is valid, nothing gets printed and his option is returned;
+- Nº3  the card choosen by the player is valid, nothing gets printed and his option is returned;
 When the option is valid the console will clear and return it.
 
 - CantGetCardFromDeck has 2 WriteLines. One prints if the player doesn´t have any remaining cards in his deck | !deck | and informs him that he has 0 cards left on it. The second one happens when the player does have cards in his deck but already has 6 on his hand which is the maximum amount, so a message informing him of this is printed onto the console.
