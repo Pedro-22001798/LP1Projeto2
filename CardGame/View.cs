@@ -138,7 +138,7 @@ namespace CardGame
             Console.WriteLine("2 - Choose more cards");
             Console.WriteLine("3 - Remove cards from table");
             Console.WriteLine("4 - Get card from deck.");
-            Console.WriteLine("5 - Quit");
+            Console.WriteLine("5 - Surrender");
 
             int option;
             bool isValidOption = false;
@@ -163,19 +163,24 @@ namespace CardGame
             return option;
         }
 
-        public bool AskForQuit(IPlayer player)
+        public bool AskForSurrender(IPlayer player)
         {
             string input;
             bool isValidInput = false;
+
             do
             {
-                Console.WriteLine($"{player.Name}, do you want to quit the game? (Yes/No)");
+                Console.WriteLine($"{player.Name}, are you sure you want to surrender? Yes/No");
 
                 input = Console.ReadLine()?.Trim().ToLower();
 
-                if (input == "yes" || input == "no")
+                if (input == "yes")
                 {
-                    isValidInput = true;
+                    return true;
+                }
+                else if (input == "no")
+                {
+                    return false;
                 }
                 else
                 {
@@ -183,8 +188,10 @@ namespace CardGame
                 }
             }
             while (!isValidInput);
-            return input == "yes";
+
+            return false;
         }
+
 
         public int ShowPlayingCardsToRemove(IEnumerable<ICard> playingcards)
         {
