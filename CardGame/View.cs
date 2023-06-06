@@ -302,7 +302,7 @@ namespace CardGame
                 }
                 else if (option < 0 || option > 5)
                 {
-                    Console.WriteLine("Invalid option. Please choose from 0 to 4.");
+                    Console.WriteLine("Invalid option. Please choose from 0 to 5.");
                 }
                 else
                 {
@@ -331,11 +331,13 @@ namespace CardGame
                 Console.WriteLine($"{player.Name}, are you sure you want to surrender? Yes/No");
 
                 input = Console.ReadLine()?.Trim().ToLower() ?? "";
-
+                Console.Clear();
+                
                 if (input == "yes")
                 {
                     isValidInput = true;
                     return true;
+                    
                 }
                 else if (input == "no")
                 {
@@ -348,6 +350,7 @@ namespace CardGame
                 }
             }
             while (!isValidInput);
+            
 
             return false;
         }
