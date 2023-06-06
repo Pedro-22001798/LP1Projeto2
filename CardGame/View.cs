@@ -23,7 +23,18 @@ namespace CardGame
         /// </summary>
         public void BeginGame()
         {
-            Console.WriteLine("Hello! Welcome to Tragic: The Reckoning card game");
+            Console.WriteLine("Welcome to Tragic: The Reckoning card game! \n\nThe goal is to defeat your opponent by reducing their health to zero.");
+            Console.WriteLine("Enter the names of two players at the beginning of the game. \nThe game has turns divided into two phases: Spells and Attack.");
+            Console.WriteLine("In the Spells phase, you have options:\n - Enter 0 to end your turn.\n - Enter 1 to view the cards on the table.");
+            Console.WriteLine(" - Enter 2 to play a card from your hand 1 by 1 (total cost <= mana)\n - Enter 3 to remove cards from the table.");
+            Console.WriteLine(" - Enter 4 to get a card from your deck (if deck not empty and hand has < 6 cards)\n - Enter 5 to surrender and end the game.");
+            Console.WriteLine("During the attack phase the cards chosen by the players will fight and the damage will be calculated .");
+            Console.WriteLine("Play continues until one player's health reaches zero, if a player surrenders or if it runs out of cards.\n\n");
+            Console.WriteLine("Enjoy playing Tragic: The Reckoning card game!");
+            Console.Write("\nPress any key to continue...");
+            Console.ReadKey(true);
+            Console.WriteLine("\n");
+            Console.Clear();
         }
 
         /// <summary>
@@ -114,64 +125,64 @@ namespace CardGame
         }
 
         public int ShowHand(IPlayer player)
-{
-    IEnumerable<ICard> hand = player.Hand;
-    int index = 1;
-    
-    Console.WriteLine("Your Hand:");
-    foreach (ICard card in hand)
-    {
-        Console.WriteLine(" ┌─────────────────────┐ ");
-        Console.WriteLine($" │ {index,-2}                  │ ");
-        Console.WriteLine(" │                     │ ");
-        Console.WriteLine($" │ {card.Name,-19} │ ");
-        Console.WriteLine(" │                     │ ");
-        Console.WriteLine(" │                     │ ");
-        Console.WriteLine($" │ Cost: {card.Cost,-2}            │ ");
-        Console.WriteLine(" │                     │ ");
-        Console.WriteLine(" │                     │ ");
-        Console.WriteLine($" │ Attack: {card.Attack,-2}          │ ");
-        Console.WriteLine($" │ Defense: {card.Defense,-2}         │ ");
-        Console.WriteLine(" └─────────────────────┘ ");
-        Console.WriteLine();
-        index++;
-    }
-
-    Console.WriteLine($"{index}: Leave.");
-    Console.WriteLine("Which card do you want to choose?");
-
-    int option;
-    bool isValidOption = false;
-    do
-    {
-        if (!int.TryParse(Console.ReadLine(), out option))
         {
-            Console.WriteLine("Invalid option. Please choose a valid index.");
-        }
-        else if (option < 1 || option > hand.Count() + 1)
-        {
-            Console.WriteLine($"Invalid option. Please choose from 1 to {hand.Count() + 1}.");
-        }
-        else if (option != index)
-        {
-            if (hand.ElementAt(option - 1).Cost > player.Mana)
+            IEnumerable<ICard> hand = player.Hand;
+            int index = 1;
+            
+            Console.WriteLine("Your Hand:");
+            foreach (ICard card in hand)
             {
-                Console.WriteLine("Invalid option. You don't have enough mana.");
+                Console.WriteLine(" ┌─────────────────────┐ ");
+                Console.WriteLine($" │ Index:{index,-2}            │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine($" │ {card.Name,-19} │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine($" │ Cost: {card.Cost,-2}            │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine($" │ Attack: {card.Attack,-2}          │ ");
+                Console.WriteLine($" │ Defense: {card.Defense,-2}         │ ");
+                Console.WriteLine(" └─────────────────────┘ ");
+                Console.WriteLine();
+                index++;
             }
-            else
-            {
-                isValidOption = true;
-            }
-        }
-        else
-        {
-            isValidOption = true;
-        }
-    }
-    while (!isValidOption);
 
-    return option;
-}
+            Console.WriteLine($"{index}: Leave.");
+            Console.WriteLine("Which card do you want to choose?");
+
+            int option;
+            bool isValidOption = false;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out option))
+                {
+                    Console.WriteLine("Invalid option. Please choose a valid index.");
+                }
+                else if (option < 1 || option > hand.Count() + 1)
+                {
+                    Console.WriteLine($"Invalid option. Please choose from 1 to {hand.Count() + 1}.");
+                }
+                else if (option != index)
+                {
+                    if (hand.ElementAt(option - 1).Cost > player.Mana)
+                    {
+                        Console.WriteLine("Invalid option. You don't have enough mana.");
+                    }
+                    else
+                    {
+                        isValidOption = true;
+                    }
+                }
+                else
+                {
+                    isValidOption = true;
+                }
+            }
+            while (!isValidOption);
+
+            return option;
+        }
 
 
 
@@ -187,7 +198,7 @@ namespace CardGame
         {
             Console.WriteLine("0 - End turn.");
             Console.WriteLine("1 - View current cards on table.");
-            Console.WriteLine("2 - Choose more cards");
+            Console.WriteLine("2 - Choose card");
             Console.WriteLine("3 - Remove cards from table");
             Console.WriteLine("4 - Get card from deck.");
             Console.WriteLine("5 - Surrender");
