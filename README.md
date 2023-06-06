@@ -2,7 +2,7 @@
 ## LP1 Project 2 | Tragic : The Reckoning
 
 
-- Done by :
+## Done by :
 Pedro Silva 22001798
 Bruno Rodrigues 22103346
 Nuno Matias 22104821
@@ -17,8 +17,8 @@ Nuno Matias 22104821
 ### Bruno Rodrigues :
 
 ###  Nuno Matias :
-Created the report and wrote the explanations for the code
-Reviewed the code and pointed mistakes to be changed ( dead code & spelling)
+- Created the report and wrote the explanations for the code
+- Reviewed the code and pointed mistakes to be changed ( dead code & spelling)
 
 - Git Repository:
 https://github.com/Pedro-22001798/LP1Projeto2
@@ -159,9 +159,9 @@ When the option is valid the console will clear and return it.
 
 
 ## Controller
-Moving on into our Controller class, that´s part of the Controller section of MVC, this is where the main cicle of the game is and will also manage the inputs of the players. This one will call a lot of classes that have not yet been explained so when they are mentioned we will give a small ideia of what they do and later on explain them more in detail.
+The last part of our MVC code structure is the Controller which is done in the Controller class of the code.
 
-We start by calling the IView, DeckCreator & a list of the IPlayer classes as well as creating some variables, two of type int and one of type bool. The int variables are maxCard that we equal to 20 since that´s the 
+We start by calling the IView, DeckCreator & a list of the IPlayer classes as well as creating 2 variables, one of type int named turn thats starts at 0. The int variables are maxCard that we equal to 20 since that´s the 
 maximum number of card in the deck and turn that we equal to 0 that represents the turn number we are on, this is important because during the game the turn number determinates how much mana each player
 is able to use on the respective turn. The bool variable is named gameOver and it starts on False and will change to True if one of the players meets the conditions to lose the game.
 
