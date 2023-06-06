@@ -32,6 +32,10 @@ namespace CardGame
         /// </summary>
         public IEnumerable<ICard> Hand {get; private set;}
 
+        /// <summary>
+        /// PlayingHand property to view and set the player's playing hand.
+        /// </summary>
+        /// <value></value>
         public IEnumerable<ICard> PlayingHand {get; private set;}
 
         /// <summary>
@@ -67,16 +71,28 @@ namespace CardGame
             this.Hand = hand;
         }
 
+        /// <summary>
+        /// Method responsible for defining the player's playing hand
+        /// </summary>
+        /// <param name="playingHand">New playing hand</param>
         public void DefinePlayingHand(IEnumerable<ICard> playingHand)
         {
             this.PlayingHand = playingHand;
         }
 
+        /// <summary>
+        /// Method responsible for defining the player's mana
+        /// </summary>
+        /// <param name="mana">New current mana</param>
         public void DefineMana(int mana)
         {
             this.Mana = mana;
         }
 
+        /// <summary>
+        /// Method responsible for using player's mana
+        /// </summary>
+        /// <param name="mana">Mana used</param>
         public void UseMana(int mana)
         {
             if(this.Mana >= mana)
@@ -85,11 +101,19 @@ namespace CardGame
             }
         }
 
+        /// <summary>
+        /// Method responsible for receiving mana for the player
+        /// </summary>
+        /// <param name="mana">Mana added</param>
         public void GetMana(int mana)
         {
             this.Mana = this.Mana + mana;
         }
 
+        /// <summary>
+        /// Method responsible for removing a card from the player's deck
+        /// </summary>
+        /// <param name="card">Removed card</param>
         public void RemoveCardFromDeck(ICard card)
         {
             List<ICard> updatedDeck = new List<ICard>(Deck);
@@ -100,6 +124,10 @@ namespace CardGame
             }
         }
 
+        /// <summary>
+        /// Method responsible for removing a card from the player's hand
+        /// </summary>
+        /// <param name="card">Removed Card</param>
         public void RemoveCardFromHand(ICard card)
         {
             List<ICard> updatedHand = new List<ICard>(Hand);
@@ -110,6 +138,10 @@ namespace CardGame
             }
         }
 
+        /// <summary>
+        /// Method responsible for adding a card to the player's hand
+        /// </summary>
+        /// <param name="card">Added Card</param>
         public void AddCardToHand(ICard card)
         {
             List<ICard> updatedHand = new List<ICard>(Hand);
@@ -117,6 +149,10 @@ namespace CardGame
             Hand = updatedHand;         
         }
 
+        /// <summary>
+        /// Method responsible for dealing damage to the player
+        /// </summary>
+        /// <param name="damage">Dealt damage</param>
         public void TakeDamage(int damage)
         {
             Health -= damage;
@@ -124,6 +160,10 @@ namespace CardGame
                 Health = 0;
         }
 
+        /// <summary>
+        /// Method responsible for getting the first card from the top of the player's deck
+        /// </summary>
+        /// <returns>Card from the top of the player's deck</returns>
         public ICard? GetCardFromTopOfDeck()
         {
             if (Deck.Count() == 0)

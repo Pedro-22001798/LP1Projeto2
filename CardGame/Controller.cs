@@ -7,10 +7,25 @@ namespace CardGame
 {
     public class Controller
     {
+        /// <summary>
+        /// IView responsible for displaying visual feedback for the players
+        /// </summary>
         private IView? view;
+        /// <summary>
+        /// DeckCreator responsible for creating the initial deck, making it random and giving the initial hand
+        /// </summary>
         private DeckCreator deckCreator;
+        /// <summary>
+        /// List of the players playing the game
+        /// </summary>
         private IList<IPlayer> playerList;
+        /// <summary>
+        /// Current game turn
+        /// </summary>
         private int turn = 0;
+        /// <summary>
+        /// Bool to check if the game is over or not
+        /// </summary>
         private bool gameOver;
 
         /// <summary>
@@ -104,6 +119,11 @@ namespace CardGame
             playerList.Add(player);
         }
 
+        /// <summary>
+        /// Method responsible for the loop where the player will choose his playing cards
+        /// </summary>
+        /// <param name="player">Current player choosing cards</param>
+        /// <returns>List of playing cards</returns>
         public List<ICard> SpellPhaseGame(IPlayer player)
         {
             if (view == null)
@@ -140,6 +160,9 @@ namespace CardGame
             return playingHand;
         }
 
+        /// <summary>
+        /// Method responsible for the Attack Stage loop where the players fight against each other with their respective playing cards.
+        /// </summary>
         public void AttackGamePhase()
         {
             if (view == null)
@@ -235,6 +258,13 @@ namespace CardGame
             }
         }
 
+        /// <summary>
+        /// Method responsible for handling the options available within the spell phase for each player.
+        /// </summary>
+        /// <param name="option">Option selected by the player</param>
+        /// <param name="playingHand">Player's playing cards</param>
+        /// <param name="player">Current player on the menu selection</param>
+        /// <returns></returns>
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
         {
             if (view == null)

@@ -7,7 +7,15 @@ namespace CardGame
 {
     public class DeckCreator
     {
+        /// <summary>
+        /// Amount of initial cards to be chosen
+        /// </summary>
         private int initialHand = 6;
+
+        /// <summary>
+        /// Method responsible for creating the deck with custom cards.
+        /// </summary>
+        /// <returns>List of cards created</returns>
         public IEnumerable<Card> CreateDeck()
         {
             for(int i = 0; i < 4; i++)
@@ -62,6 +70,10 @@ namespace CardGame
             }
         }
 
+        /// <summary>
+        /// Method responsible for making the created deck random.
+        /// </summary>
+        /// <returns>List of cards, now randomly placed</returns>
         public IEnumerable<ICard> CreateRandomDeck()
         {
             IEnumerable<ICard> deck = new List<Card>();
@@ -71,6 +83,11 @@ namespace CardGame
             return shuffledCards;
         }
 
+        /// <summary>
+        /// Method responsible for dealing the initial hand of (default) 6 cards.
+        /// </summary>
+        /// <param name="deck">Deck where the cards will come from</param>
+        /// <returns>List of cards for the initial hand</returns>
         public IEnumerable<ICard> GetInitialHand(IEnumerable<ICard> deck)
         {
             Random rnd = new Random();
