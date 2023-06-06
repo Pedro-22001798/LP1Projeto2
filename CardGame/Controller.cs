@@ -10,8 +10,6 @@ namespace CardGame
         IView view;
         DeckCreator deckCreator;
         IList<IPlayer> playerList;
-        int maxCard = 20;
-        int initialCards = 6;
         int turn = 0;
         bool gameOver;
 

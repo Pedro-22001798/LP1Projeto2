@@ -33,12 +33,31 @@ namespace CardGame
         public IEnumerable<string> ListPlayers()
         {
             Console.WriteLine("What's the name of player 1?");
-            string name1 = Console.ReadLine();
+            string name1 = ReadNonEmptyString();
             yield return name1;
             Console.WriteLine("What's the name of player 2");
-            string name2 = Console.ReadLine();
+            string name2 = ReadNonEmptyString();
             yield return name2;
             yield break;
+        }
+
+        /// <summary>
+        /// Method responsible for handling the player's name to avoid empty names and exceptions.
+        /// </summary>
+        /// <returns>String with valid name</returns>
+        private string ReadNonEmptyString()
+        {
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(input))
+                {
+                    return input.Trim();
+                }
+
+                Console.WriteLine("Invalid input. Please enter a non-empty name.");
+            }
         }
 
         /// <summary>
