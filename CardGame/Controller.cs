@@ -137,8 +137,12 @@ namespace CardGame
             List<ICard> player1PlayingHand = playerList[0].PlayingHand.ToList();
             List<ICard> player2PlayingHand = playerList[1].PlayingHand.ToList();
 
+            int extraDamageP1 = 0;
+            int extraDamageP2 = 0;
+
             while (player1PlayingHand.Any() && player2PlayingHand.Any())
             {
+                
                 ICard player1Card = player1PlayingHand.First();
                 ICard player2Card = player2PlayingHand.First();
 
@@ -152,56 +156,61 @@ namespace CardGame
                 player1Defense -= player2Attack;
                 player2Defense -= player1Attack;
 
-                // Check if either player's defense reached zero or below
-                if (player1Defense <= 0)
+                if(player1Defense <= 0 && player2Defense > 0)
                 {
+                    int extraDamage = player2Card.Attack - player1Card.Defense;
+                    Console.WriteLine($"DANO EXTRA PARA DAR NAS CARTAS 1 = {extraDamage}");
+                    player2Card.SetDefense(player2Defense);
                     player1PlayingHand.RemoveAt(0);
-                    if (player1PlayingHand.Any())
-                    {
-                        player1Defense = 0; // Reset defense for the next card in play
-                    }
-                    else
-                    {
-                        playerList[0].TakeDamage(Math.Abs(player1Defense)); // Deduct remaining damage from player's HP
-                        player1Defense = 0; // Reset defense to prevent negative values
-                    }
                 }
 
-                if (player2Defense <= 0)
+                if(player2Defense <= 0 && player1Defense > 0)
                 {
+                    int extraDamage = player1Card.Attack - player2Card.Defense;
+                    Console.WriteLine($"DANO EXTRA PARA DAR NAS CARTAS 2 = {extraDamage}");  
+                    player1Card.SetDefense(player1Defense);
                     player2PlayingHand.RemoveAt(0);
-                    if (player2PlayingHand.Any())
-                    {
-                        player2Defense = 0; // Reset defense for the next card in play
-                    }
-                    else
-                    {
-                        playerList[1].TakeDamage(Math.Abs(player2Defense)); // Deduct remaining damage from player's HP
-                        player2Defense = 0; // Reset defense to prevent negative values
-                    }
                 }
 
-                // Update defense values for the cards in play
-                player1Card.SetDefense(player1Defense);
-                player2Card.SetDefense(player2Defense);
+                // Check if either player's defense reached zero or below
+                // if (player1Defense <= 0)
+                // {
+                //     int extraDamage = Math.Max(player2Attack - player1Defense, 0);
+                //     playerList[0].TakeDamage(extraDamage);
+                //     player1PlayingHand.RemoveAt(0);
+                // }
+                // else
+                // {
+                //     player1Card.SetDefense(player1Defense);
+                // }
 
-                player2PlayingHand = player2PlayingHand.Skip(1).ToList();
-                player1PlayingHand = player1PlayingHand.Skip(1).ToList();
+                // if (player2Defense <= 0)
+                // {
+                //     int extraDamage = Math.Max(player1Attack - player2Defense, 0);
+                //     playerList[1].TakeDamage(extraDamage);
+                //     player2PlayingHand.RemoveAt(0);
+                // }
+                // else
+                // {
+                //     player2Card.SetDefense(player2Defense);
+                // }
+
+                // player1PlayingHand = player1PlayingHand.Skip(1).ToList();
+                // player2PlayingHand = player2PlayingHand.Skip(1).ToList();
             }
 
-            // Reduce the HP of the player with no cards left in play
-            if (player1PlayingHand.Count == 0)
+            foreach (ICard card in player1PlayingHand)
             {
-                int totalAttack = player2PlayingHand.Sum(card => card.Attack);
-                playerList[0].TakeDamage(totalAttack);
-            }
-            else if (player2PlayingHand.Count == 0)
-            {
-                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
+                int totalAttack = card.Attack;
                 playerList[1].TakeDamage(totalAttack);
             }
 
-            // Discard the cards from the game
+            foreach (ICard card in player2PlayingHand)
+            {
+                int totalAttack = card.Attack;
+                playerList[0].TakeDamage(totalAttack);
+            }
+
             player1PlayingHand.Clear();
             player2PlayingHand.Clear();
 
@@ -210,7 +219,6 @@ namespace CardGame
                 view.ShowPlayerStats(p);
             }
         }
-
 
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
