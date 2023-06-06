@@ -82,11 +82,6 @@ namespace CardGame
             Console.WriteLine($"It's {player.Name}'s turn.");
         }
 
-        public void ShowPlayerInformation(IPlayer player)
-        {
-
-        }
-
         public void ShowGamePhase(string phase)
         {
             switch(phase)
@@ -429,6 +424,39 @@ namespace CardGame
                 Console.WriteLine("Can't get a card from your deck. Your deck has 0 cards.");
             else
                 Console.WriteLine("Can't get any more cards from your deck. Your hand already has 6.");
+        }
+
+        public void ShowAttackStageFight(IList<IPlayer> players)
+        {
+            Console.WriteLine($"{players[0].Name} cards:");
+            if(players[0].PlayingHand.Any())
+            {
+                foreach(ICard c in players[0].PlayingHand)
+                {
+                    Console.WriteLine($"{c.Name} - Attack = {c.Attack} and Defense = {c.Defense}");
+                }                
+            }
+            else
+            {
+                Console.WriteLine($"{players[0].Name} did not bring anyone for battle. That's some courage!");
+            }
+            Console.WriteLine("------------VS------------");
+            Console.WriteLine($"{players[1].Name} cards:");
+            if(players[1].PlayingHand.Any())
+            {
+                foreach(ICard c in players[1].PlayingHand)
+                {
+                    Console.WriteLine($"{c.Name} - Attack = {c.Attack} and Defense = {c.Defense}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{players[1].Name} did not bring anyone for battle. That's some courage!");
+            }
+
+            Console.WriteLine("Press any key to continue..");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }

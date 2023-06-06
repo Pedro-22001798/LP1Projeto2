@@ -18,5 +18,6 @@ namespace CardGame
         bool AskForSurrender(IPlayer player);
         int ShowPlayingCardsToRemove(IEnumerable<ICard> playingcards);
         void CantGetCardFromDeck(bool deck);
+        void ShowAttackStageFight(IList<IPlayer> players);
     }
 }

@@ -77,6 +77,11 @@ namespace CardGame
 
                 view.ShowGamePhase("Attack");
 
+                if(playerList[0].PlayingHand.Any() || playerList[1].PlayingHand.Any())
+                {
+                    view.ShowAttackStageFight(playerList);
+                }
+
                 AttackGamePhase();
 
                 
