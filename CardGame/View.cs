@@ -82,6 +82,10 @@ namespace CardGame
             Console.WriteLine($"It's {player.Name}'s turn.");
         }
 
+        /// <summary>
+        /// Method responsible for informing the players of the game stage. Attack or Spell.
+        /// </summary>
+        /// <param name="phase"></param>
         public void ShowGamePhase(string phase)
         {
             switch(phase)
@@ -95,6 +99,10 @@ namespace CardGame
             }
         }
 
+        /// <summary>
+        /// Method responsible for showing the playing cards from a certain player.
+        /// </summary>
+        /// <param name="playingcards">Playing cards from a certain player</param>
         public void ShowPlayingCards(IEnumerable<ICard> playingcards)
         {
             Console.WriteLine("Playing Hand:");
@@ -158,7 +166,11 @@ namespace CardGame
             
         }
 
-
+        /// <summary>
+        /// Method responsible for showing the player's hand cards.
+        /// </summary>
+        /// <param name="player">Player received to view current hand</param>
+        /// <returns></returns>
         public int ShowHand(IPlayer player)
         {
             IEnumerable<ICard>? hand = player.Hand;
@@ -253,10 +265,10 @@ namespace CardGame
             return option;
         }
 
-
-
-
-
+        /// <summary>
+        /// Method responsible for showing player information like Name, Health and Mana.
+        /// </summary>
+        /// <param name="player">Player received to show information about</param>
         public void ShowPlayerStats(IPlayer player)
         {
             Console.WriteLine("----------------------------------------------------------------------------");
@@ -266,6 +278,10 @@ namespace CardGame
 
         }
 
+        /// <summary>
+        /// Method responsible for showing a selection menu to the player and also collect the desired option.
+        /// </summary>
+        /// <returns>Option selected</returns>
         public int ShowSpellPhaseSelection()
         {
             Console.WriteLine("0 - End turn.");
@@ -300,6 +316,11 @@ namespace CardGame
             return option;
         }
 
+        /// <summary>
+        /// Method responsible for asking the player if he wants to surrender and quit the game before the next turn.
+        /// </summary>
+        /// <param name="player">Player to ask</param>
+        /// <returns>Surrender state, true for surrender and false for continue with the game</returns>
         public bool AskForSurrender(IPlayer player)
         {
             string input;
@@ -331,8 +352,11 @@ namespace CardGame
             return false;
         }
 
-
-
+        /// <summary>
+        /// Method responsible for showing the playing cards and asking for an index to remove a card back to the player's hand.
+        /// </summary>
+        /// <param name="playingcards">Player's current playing cards</param>
+        /// <returns>Index of the card to remove</returns>
         public int ShowPlayingCardsToRemove(IEnumerable<ICard> playingcards)
         {
             Console.WriteLine("Playing Hand:");
@@ -415,6 +439,10 @@ namespace CardGame
             return option;
         }
 
+        /// <summary>
+        /// Method responsible for alerting the player when he can't get a new card from the top of the deck.
+        /// </summary>
+        /// <param name="deck">If true, deck is the problem. If false, current hand is the problem</param>
         public void CantGetCardFromDeck(bool deck)
         {
             if(!deck)
@@ -423,6 +451,10 @@ namespace CardGame
                 Console.WriteLine("Can't get any more cards from your deck. Your hand already has 6.");
         }
 
+        /// <summary>
+        /// Method responsible for showing the players every card played for the attack stage.
+        /// </summary>
+        /// <param name="players">List of current players playing</param>
         public void ShowAttackStageFight(IList<IPlayer> players)
         {
             Console.WriteLine($"{players[0].Name} cards:");
