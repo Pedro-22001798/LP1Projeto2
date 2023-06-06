@@ -24,7 +24,7 @@ Nuno Matias 22104821
 - Created the report and wrote the explanations for the code
 - Reviewed the code and pointed mistakes to be changed ( dead code & spelling)
 
-- Git Repository:
+## Git Repository:
 https://github.com/Pedro-22001798/LP1Projeto2
 
 
@@ -165,12 +165,22 @@ When the option is valid the console will clear and return it.
 ## Controller
 The last part of our MVC code structure is the Controller which is done in the Controller class of the code.
 
-We start by calling the IView, DeckCreator & a list of the IPlayer classes as well as creating 2 variables, one of type int named turn thats starts at 0. The int variables are maxCard that we equal to 20 since that´s the 
-maximum number of card in the deck and turn that we equal to 0 that represents the turn number we are on, this is important because during the game the turn number determinates how much mana each player
-is able to use on the respective turn. The bool variable is named gameOver and it starts on False and will change to True if one of the players meets the conditions to lose the game.
+We start by calling the IView, DeckCreator & a list of the IPlayer classes as well as creating 2 variables, one of type int named turn thats starts at 0 and a bool type called gameOver.
+We than have our first method, in this case a constructor, inside the Controller class called Controller that calls for the DeckCreator class to access the deck as well as creating a new lista from the IPlayer class. This method is called everysingle time a controller is created.
 
-We than have our first method, in this case a constructor, inside the Controller class called Controller that calls for the DeckCreator class to access the deck as well as creating a playerList variable that creates
-a new list of players by calling the IPlayer class
+Our next method is called Run and it´s responsable for starting the game loop. It first calls for the IView class and than the BeginGame method from the View class to create a new view that will print the sentences mention previously ( a hello message and instructions) as well as creating a list of player name by calling the ListPlayers method also in View class.
+
+We than have a for each loop that will run the amount of times that was set on the list, for example, if the number of strings was 3 than we would have 3 players so the loop would run 3 times. We also put the gameOver variable here equal to false since the game hsa not met a condition to end at this point.
+After we set up some important things regarding the players like, checking for each player in the game if any of them have their Health or Deck card == 0 which are conditions to losing the game so in this case we change the gameOver variable to True.
+
+We than focus on the turns and different phases. We make sure the turn variable increases by 1 using ++ and if the value is lower than 5 we define the player mana using the DefineMana method or if the turn number is 5 or above the mana of the players will always be 5.
+Next we show our view by calling the ShowGamePhase method which using the playerList defines the initial hand ( 6 cards ) that the player will have. We than show our view for the Attack phase by calling ShowAttackPhase mathod
+
+Now we have everything in place to actually start playing the game which means that we start by creating new players by calling the IPlayer class and using it´s constructor where we have to enter the name we want to be called. We also define a deck for him which every player has the same 20 cards but we shufle it so it´s random using the CreateRandomDeck method. We also do this for the inital 6 cards of each player.
+
+The phases of the game than start with the Spell phase where one of the players will get the turn first. We trhan show the players stats to tell him his options by calling the ShowPlayerStats method and if the option is not 5 ( surrender ) Than the player will be presented with the his options on the spell phase that come from the SpellPhaseOptionTreatment. If the player does pick the number 5 than the gameOver will ask him if he´s sure and if he comfirms the game ends ( gameOver variable = True).
+While the option is neither 0 or 5 the cards on the hand of the player will be returned by using | return PlayingHand |.
+
 
 ## References
 - Possible null treatments and possible empty strings = StackExchange and ChatGPT
