@@ -181,7 +181,7 @@ namespace CardGame
 
             if (player1PlayingHand.Any())
             {
-                foreach(ICard c in player1PlayingHand)
+                foreach(ICard c in player1PlayingHand.ToList())
                 {
                     if(c.ExtraAttack > 0)
                     {
@@ -198,7 +198,7 @@ namespace CardGame
 
             if (player2PlayingHand.Any())
             {
-                foreach(ICard c in player2PlayingHand)
+                foreach(ICard c in player2PlayingHand.ToList())
                 {
                     if(c.ExtraAttack > 0)
                     {
