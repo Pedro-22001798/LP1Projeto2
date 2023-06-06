@@ -27,8 +27,11 @@ namespace CardGame
         /// </summary>
         int Defense{get;}
 
+        int ExtraAttack {get;}
+
         void TakeDamage(int damage);
         void ReduceDamage(int damage);
         void SetDefense(int defense);
+        void SetExtraAttack(int attack);
     }
 }

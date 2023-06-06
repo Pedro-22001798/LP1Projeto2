@@ -159,7 +159,7 @@ namespace CardGame
                 }
             }
             while (!isValidOption);
-
+            
             return option;
         }
 

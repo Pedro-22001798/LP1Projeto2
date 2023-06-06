@@ -143,23 +143,39 @@ namespace CardGame
                 ICard player1Card = player1PlayingHand.First();
                 ICard player2Card = player2PlayingHand.First();
 
-                player1Card.TakeDamage(player2Card.Attack);
-                player2Card.TakeDamage(player1Card.Attack);
+                if(player1Card.ExtraAttack > 0)
+                {
+                    player2Card.TakeDamage(player1Card.ExtraAttack);   
+                }
+                else
+                {
+                    player2Card.TakeDamage(player1Card.Attack);
+                }
+                if(player2Card.ExtraAttack > 0)
+                {
+                    player1Card.TakeDamage(player2Card.ExtraAttack);
+                }
+                else
+                {
+                    player1Card.TakeDamage(player2Card.Attack);
+                }
 
                 if(player1Card.Defense <= 0)
                 {
+                    player1Card.SetExtraAttack(0);
                     if(player1Card.Defense < 0)
                     {
-                        player2Card.ReduceDamage(-player1Card.Defense);
+                        player2Card.SetExtraAttack(-player1Card.Defense);
                     }
                     player1PlayingHand.RemoveAt(0);
                 }
 
                 if(player2Card.Defense <= 0)
                 {
+                    player2Card.SetExtraAttack(0);
                     if(player2Card.Defense < 0)
                     {
-                        player1Card.ReduceDamage(-player2Card.Defense);
+                        player1Card.SetExtraAttack(-player2Card.Defense);
                     }
                     player2PlayingHand.RemoveAt(0);   
                 }
@@ -167,14 +183,36 @@ namespace CardGame
 
             if (player1PlayingHand.Any())
             {
-                int totalAttack = player1PlayingHand.Sum(card => card.Attack);
-                playerList[1].TakeDamage(totalAttack);
+                foreach(ICard c in player1PlayingHand)
+                {
+                    if(c.ExtraAttack > 0)
+                    {
+                        playerList[1].TakeDamage(c.ExtraAttack);
+                        c.SetExtraAttack(0);
+                    }
+                    else
+                    {
+                        playerList[1].TakeDamage(c.Attack);
+                        player1PlayingHand.RemoveAt(0);
+                    }
+                }
             }
 
             if (player2PlayingHand.Any())
             {
-                int totalAttack = player2PlayingHand.Sum(card => card.Attack);
-                playerList[0].TakeDamage(totalAttack);
+                foreach(ICard c in player2PlayingHand)
+                {
+                    if(c.ExtraAttack > 0)
+                    {
+                        playerList[0].TakeDamage(c.ExtraAttack);
+                        c.SetExtraAttack(0);
+                    }
+                    else
+                    {
+                        playerList[0].TakeDamage(c.Attack);
+                        player2PlayingHand.RemoveAt(0);
+                    }
+                }
             }            
 
             player1PlayingHand.Clear();

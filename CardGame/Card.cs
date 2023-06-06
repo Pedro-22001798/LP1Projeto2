@@ -11,6 +11,7 @@ namespace CardGame
         public int Cost{get;private set;}
         public int Attack{get;private set;}
         public int Defense{get;private set;}
+        public int ExtraAttack{get;private set;}
         
         /// <summary>
         /// Card constructor, called when creating a new card.
@@ -25,6 +26,7 @@ namespace CardGame
             this.Cost = cost;
             this.Attack = attack;
             this.Defense = defense;
+            this.ExtraAttack = 0;
         }
 
         public void TakeDamage(int damage)
@@ -40,6 +42,11 @@ namespace CardGame
         public void SetDefense(int defense)
         {
             this.Defense = defense;
+        }
+
+        public void SetExtraAttack(int attack)
+        {
+            this.ExtraAttack = attack;
         }
     }
 }
