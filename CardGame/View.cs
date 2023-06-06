@@ -97,6 +97,8 @@ namespace CardGame
                 index++;
             }
 
+            Console.WriteLine("Press enter to leave...");
+            Console.ReadKey();
             Console.Clear();
         }
 
