@@ -77,10 +77,13 @@ namespace CardGame
                 Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}.");
                 index++;
             }
+
+            Console.Clear();
         }
 
         public int ShowHand(IPlayer player)
         {
+            ShowPlayerStats(player);
             IEnumerable<ICard> hand = player.Hand;
             int index = 1;
             foreach(ICard c in hand)
@@ -121,6 +124,8 @@ namespace CardGame
             }
             while (!isValidOption);
 
+            Console.Clear();
+
             return option;
         }
 
@@ -159,7 +164,9 @@ namespace CardGame
                 }
             }
             while (!isValidOption);
-            
+
+            Console.Clear();
+
             return option;
         }
 
@@ -223,6 +230,8 @@ namespace CardGame
                 }
             }
             while (!isValidOption);
+
+            Console.Clear();
 
             return option;
         }
