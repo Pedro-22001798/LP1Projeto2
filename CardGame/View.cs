@@ -291,7 +291,7 @@ namespace CardGame
                 }
                 else if (option < 0 || option > 5)
                 {
-                    Console.WriteLine("Invalid option. Please choose from 0 to 4.");
+                    Console.WriteLine("Invalid option. Please choose from 0 to 5.");
                 }
                 else
                 {
