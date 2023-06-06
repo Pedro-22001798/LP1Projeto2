@@ -134,8 +134,8 @@ namespace CardGame
 
         public void AttackGamePhase()
         {
-            IEnumerable<ICard> player1PlayingHand = playerList[0].PlayingHand;
-            IEnumerable<ICard> player2PlayingHand = playerList[1].PlayingHand;
+            List<ICard> player1PlayingHand = playerList[0].PlayingHand.ToList();
+            List<ICard> player2PlayingHand = playerList[1].PlayingHand.ToList();
 
             while (player1PlayingHand.Any() && player2PlayingHand.Any())
             {
@@ -157,32 +157,47 @@ namespace CardGame
                 if (player2Card.Defense <= 0)
                 {
                     int extraDamage = Math.Max(player1Attack - player2Defense, 0);
-                    playerList[1].TakeDamage(extraDamage);
+                    player2PlayingHand.RemoveAt(0);
+                    if (player2PlayingHand.Any())
+                    {
+                        player2PlayingHand.First().TakeDamage(extraDamage);
+                    }
+                    else
+                    {
+                        playerList[1].TakeDamage(extraDamage);
+                    }
                 }
 
                 if (player1Card.Defense <= 0)
                 {
                     int extraDamage = Math.Max(player2Attack - player1Defense, 0);
-                    playerList[0].TakeDamage(extraDamage);
+                    player1PlayingHand.RemoveAt(0);
+                    if (player1PlayingHand.Any())
+                    {
+                        player1PlayingHand.First().TakeDamage(extraDamage);
+                    }
+                    else
+                    {
+                        playerList[0].TakeDamage(extraDamage);
+                    }
                 }
 
-                player2PlayingHand = player2PlayingHand.Skip(1);
-                player1PlayingHand = player1PlayingHand.Skip(1);
-
+                player2PlayingHand = player2PlayingHand.Skip(1).ToList();
+                player1PlayingHand = player1PlayingHand.Skip(1).ToList();
             }
 
             if (player1PlayingHand.Any())
             {
                 int totalAttack = player1PlayingHand.Sum(card => card.Attack);
                 playerList[1].TakeDamage(totalAttack);
-                player1PlayingHand = Enumerable.Empty<ICard>();
+                player1PlayingHand.Clear();
             }
 
             if (player2PlayingHand.Any())
             {
                 int totalAttack = player2PlayingHand.Sum(card => card.Attack);
                 playerList[0].TakeDamage(totalAttack);
-                player2PlayingHand = Enumerable.Empty<ICard>();
+                player2PlayingHand.Clear();
             }
 
             foreach (IPlayer p in playerList)
@@ -190,6 +205,7 @@ namespace CardGame
                 view.ShowPlayerStats(p);
             }
         }
+
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
         {
