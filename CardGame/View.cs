@@ -38,6 +38,7 @@ namespace CardGame
             Console.WriteLine("What's the name of player 2");
             string name2 = ReadNonEmptyString();
             yield return name2;
+            Console.Clear();
             yield break;
         }
 
@@ -93,7 +94,19 @@ namespace CardGame
             int index = 1;
             foreach(ICard c in playingcards)
             {
-                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}.");
+                Console.WriteLine(" ┌─────────────────────┐ ");
+                Console.WriteLine($" │ {index,-2}                  │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine($" │ {c.Name,-19} │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine($" │ Cost: {c.Cost,-2}            │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine(" │                     │ ");
+                Console.WriteLine($" │ Attack: {c.Attack,-2}          │ ");
+                Console.WriteLine($" │ Defense: {c.Defense,-2}         │ ");
+                Console.WriteLine(" └─────────────────────┘ ");
+                Console.WriteLine();
                 index++;
             }
 
@@ -103,52 +116,67 @@ namespace CardGame
         }
 
         public int ShowHand(IPlayer player)
+{
+    IEnumerable<ICard> hand = player.Hand;
+    int index = 1;
+    
+    Console.WriteLine("Your Hand:");
+    foreach (ICard card in hand)
+    {
+        Console.WriteLine(" ┌─────────────────────┐ ");
+        Console.WriteLine($" │ {index,-2}                  │ ");
+        Console.WriteLine(" │                     │ ");
+        Console.WriteLine($" │ {card.Name,-19} │ ");
+        Console.WriteLine(" │                     │ ");
+        Console.WriteLine(" │                     │ ");
+        Console.WriteLine($" │ Cost: {card.Cost,-2}            │ ");
+        Console.WriteLine(" │                     │ ");
+        Console.WriteLine(" │                     │ ");
+        Console.WriteLine($" │ Attack: {card.Attack,-2}          │ ");
+        Console.WriteLine($" │ Defense: {card.Defense,-2}         │ ");
+        Console.WriteLine(" └─────────────────────┘ ");
+        Console.WriteLine();
+        index++;
+    }
+
+    Console.WriteLine($"{index}: Leave.");
+    Console.WriteLine("Which card do you want to choose?");
+
+    int option;
+    bool isValidOption = false;
+    do
+    {
+        if (!int.TryParse(Console.ReadLine(), out option))
         {
-            ShowPlayerStats(player);
-            IEnumerable<ICard> hand = player.Hand;
-            int index = 1;
-            foreach(ICard c in hand)
-            {
-                Console.WriteLine($"{index} : {c.Name} - Attack = {c.Attack}, Defense = {c.Defense} and Cost = {c.Cost}.");
-                index++;
-            }
-            Console.WriteLine($"{index} : Leave.");
-            Console.WriteLine("What card do you want to choose?");
-
-            int option;
-            bool isValidOption = false;
-            do
-            {
-                if (!int.TryParse(Console.ReadLine(), out option))
-                {
-                    Console.WriteLine("Invalid option. Please choose a valid index.");
-                }
-                else if (option < 1 || option > hand.Count() + 1)
-                {
-                    Console.WriteLine($"Invalid option. Please choose from 1 to {hand.Count() + 1}.");
-                }
-                else if(option != index)
-                {
-                    if(hand.ElementAt(option-1).Cost > player.Mana)
-                    {
-                        Console.WriteLine("Invalid option. You don't have enought mana.");
-                    }
-                    else
-                    {
-                        isValidOption = true;
-                    }
-                }
-                else
-                {
-                    isValidOption = true;
-                }
-            }
-            while (!isValidOption);
-
-            Console.Clear();
-
-            return option;
+            Console.WriteLine("Invalid option. Please choose a valid index.");
         }
+        else if (option < 1 || option > hand.Count() + 1)
+        {
+            Console.WriteLine($"Invalid option. Please choose from 1 to {hand.Count() + 1}.");
+        }
+        else if (option != index)
+        {
+            if (hand.ElementAt(option - 1).Cost > player.Mana)
+            {
+                Console.WriteLine("Invalid option. You don't have enough mana.");
+            }
+            else
+            {
+                isValidOption = true;
+            }
+        }
+        else
+        {
+            isValidOption = true;
+        }
+    }
+    while (!isValidOption);
+
+    return option;
+}
+
+
+
 
         public void ShowPlayerStats(IPlayer player)
         {
