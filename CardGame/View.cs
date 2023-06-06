@@ -103,53 +103,126 @@ namespace CardGame
         {
             Console.WriteLine("Playing Hand:");
             int index = 1;
-            foreach(ICard c in playingcards)
+            
+            
+            foreach (ICard card in playingcards)
             {
-                Console.WriteLine(" ┌─────────────────────┐ ");
-                Console.WriteLine($" │ {index,-2}                  │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine($" │ {c.Name,-19} │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine($" │ Cost: {c.Cost,-2}            │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine($" │ Attack: {c.Attack,-2}          │ ");
-                Console.WriteLine($" │ Defense: {c.Defense,-2}         │ ");
-                Console.WriteLine(" └─────────────────────┘ ");
-                Console.WriteLine();
+                Console.Write(" ┌─────────────────────┐ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ Index:{index,-2}            │ ");
                 index++;
             }
-
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ {card.Name,-19} │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ Cost: {card.Cost,-2}            │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ Attack: {card.Attack,-2}          │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ Defense: {card.Defense,-2}         │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write(" └─────────────────────┘ ");
+            }
+            Console.Write("\nPress any key to continue...");
+            Console.ReadKey(true);
+            Console.WriteLine("\n");
             Console.Clear();
+            
         }
+
 
         public int ShowHand(IPlayer player)
         {
             IEnumerable<ICard> hand = player.Hand;
             int index = 1;
-            
+
             Console.WriteLine("Your Hand:");
             foreach (ICard card in hand)
             {
-                Console.WriteLine(" ┌─────────────────────┐ ");
-                Console.WriteLine($" │ Index:{index,-2}            │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine($" │ {card.Name,-19} │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine($" │ Cost: {card.Cost,-2}            │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine(" │                     │ ");
-                Console.WriteLine($" │ Attack: {card.Attack,-2}          │ ");
-                Console.WriteLine($" │ Defense: {card.Defense,-2}         │ ");
-                Console.WriteLine(" └─────────────────────┘ ");
-                Console.WriteLine();
+                Console.Write(" ┌─────────────────────┐ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write($" │ Index:{index,-2}            │ ");
                 index++;
             }
-
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write($" │ {card.Name,-19} │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write($" │ Cost: {card.Cost,-2}            │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write($" │ Attack: {card.Attack,-2}          │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write($" │ Defense: {card.Defense,-2}         │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in hand)
+            {
+                Console.Write(" └─────────────────────┘ ");
+            }
+            Console.WriteLine();
             Console.WriteLine($"{index}: Leave.");
             Console.WriteLine("Which card do you want to choose?");
+
 
             int option;
             bool isValidOption = false;
@@ -187,11 +260,16 @@ namespace CardGame
 
 
 
+
         public void ShowPlayerStats(IPlayer player)
         {
             Console.WriteLine("----------------------------------------------------------------------------");
             Console.WriteLine($"{player.Name} stats -> Health = {player.Health}, Mana = {player.Mana}");
             Console.WriteLine("----------------------------------------------------------------------------");
+            Console.Write("\nPress any key to continue...");
+            Console.ReadKey(true);
+            Console.WriteLine("\n");
+            Console.Clear();
         }
 
         public int ShowSpellPhaseSelection()
