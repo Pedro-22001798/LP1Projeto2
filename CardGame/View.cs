@@ -7,7 +7,7 @@ namespace CardGame
 {
     public class View : IView
     {
-        Controller controller;
+        private Controller controller;
 
         /// <summary>
         /// View constructor, called when creating a new view.
@@ -61,11 +61,11 @@ namespace CardGame
         {
             while (true)
             {
-                string input = Console.ReadLine();
+                string input = Console.ReadLine()?.Trim() ?? "";
 
                 if (!string.IsNullOrWhiteSpace(input))
                 {
-                    return input.Trim();
+                    return input;
                 }
 
                 Console.WriteLine("Invalid input. Please enter a non-empty name.");
@@ -165,7 +165,7 @@ namespace CardGame
 
         public int ShowHand(IPlayer player)
         {
-            IEnumerable<ICard> hand = player.Hand;
+            IEnumerable<ICard>? hand = player.Hand;
             int index = 1;
 
             Console.WriteLine("Your Hand:");
@@ -313,14 +313,16 @@ namespace CardGame
             {
                 Console.WriteLine($"{player.Name}, are you sure you want to surrender? Yes/No");
 
-                input = Console.ReadLine()?.Trim().ToLower();
+                input = Console.ReadLine()?.Trim().ToLower() ?? "";
 
                 if (input == "yes")
                 {
+                    isValidInput = true;
                     return true;
                 }
                 else if (input == "no")
                 {
+                    isValidInput = true;
                     return false;
                 }
                 else
@@ -332,6 +334,7 @@ namespace CardGame
 
             return false;
         }
+
 
 
         public int ShowPlayingCardsToRemove(IEnumerable<ICard> playingcards)

@@ -7,14 +7,14 @@ namespace CardGame
 {
     public class Controller
     {
-        IView view;
-        DeckCreator deckCreator;
-        IList<IPlayer> playerList;
-        int turn = 0;
-        bool gameOver;
+        private IView? view;
+        private DeckCreator deckCreator;
+        private IList<IPlayer> playerList;
+        private int turn = 0;
+        private bool gameOver;
 
         /// <summary>
-        /// Controller constructor, called everytime a controller is created.
+        /// Controller constructor, called every time a controller is created.
         /// </summary>
         /// <param name="deckCreator">Current deck creator</param>
         public Controller(DeckCreator deckCreator)
@@ -101,6 +101,10 @@ namespace CardGame
 
         public List<ICard> SpellPhaseGame(IPlayer player)
         {
+            if (view == null)
+            {
+                throw new InvalidOperationException("View is not set.");
+            }
             int option = 0;
             List<ICard> playingHand = new List<ICard>();
             view.Turn(player);
@@ -133,6 +137,10 @@ namespace CardGame
 
         public void AttackGamePhase()
         {
+            if (view == null)
+            {
+                throw new InvalidOperationException("View is not set.");
+            }
             List<ICard> player1PlayingHand = playerList[0].PlayingHand.ToList();
             List<ICard> player2PlayingHand = playerList[1].PlayingHand.ToList();
 
@@ -224,6 +232,10 @@ namespace CardGame
 
         public List<ICard> SpellPhaseOptionTreatment(int option, List<ICard> playingHand, IPlayer player)
         {
+            if (view == null)
+            {
+                throw new InvalidOperationException("View is not set.");
+            }
             List<ICard> hand = playingHand;
             switch(option)
             {
@@ -259,7 +271,7 @@ namespace CardGame
                 case 4:
                     if(player.Hand.Count() + hand.Count() < 6 && player.Deck.Count() > 0)
                     {
-                        ICard card = player.GetCardFromTopOfDeck();
+                        ICard? card = player.GetCardFromTopOfDeck();
                         if(card != null)
                         {
                             player.AddCardToHand(card);

@@ -43,6 +43,9 @@ namespace CardGame
             this.Name = name;
             this.Health = 10;
             this.Mana = 0;
+            Deck = new List<ICard>();
+            Hand = new List<ICard>();
+            PlayingHand = new List<ICard>();
         }
 
         /// <summary>
@@ -121,13 +124,12 @@ namespace CardGame
                 Health = 0;
         }
 
-        public ICard GetCardFromTopOfDeck()
+        public ICard? GetCardFromTopOfDeck()
         {
             if (Deck.Count() == 0)
             {
                 return null;
             }
-
             ICard card = Deck.First();
             RemoveCardFromDeck(card);
 

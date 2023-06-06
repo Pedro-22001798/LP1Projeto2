@@ -23,6 +23,6 @@ namespace CardGame
         void AddCardToHand(ICard card);
         void GetMana(int mana);
         void TakeDamage(int damage);
-        ICard GetCardFromTopOfDeck();
+        ICard? GetCardFromTopOfDeck();
     }
 }
