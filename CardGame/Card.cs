@@ -40,5 +40,10 @@ namespace CardGame
             if(Attack < 0)
                 Attack = 0;
         }
+
+        public void SetDefense(int defense);
+        {
+            this.Defense = defense;
+        }
     }
 }

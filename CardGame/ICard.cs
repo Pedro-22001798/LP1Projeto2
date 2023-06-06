@@ -29,5 +29,6 @@ namespace CardGame
 
         void TakeDamage(int damage);
         void ReduceDamage(int damage);
+        void SetDefense(int defense);
     }
 }

@@ -182,8 +182,8 @@ namespace CardGame
                 }
 
                 // Update defense values for the cards in play
-                player1Card.Defense = player1Defense;
-                player2Card.Defense = player2Defense;
+                player1Card.SetDefense(player1Defense);
+                player2Card.SetDefense(player2Defense);
 
                 player2PlayingHand = player2PlayingHand.Skip(1).ToList();
                 player1PlayingHand = player1PlayingHand.Skip(1).ToList();
