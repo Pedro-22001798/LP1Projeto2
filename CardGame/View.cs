@@ -253,7 +253,7 @@ namespace CardGame
                 }
             }
             while (!isValidOption);
-
+            Console.Clear();
             return option;
         }
 
@@ -266,10 +266,8 @@ namespace CardGame
             Console.WriteLine("----------------------------------------------------------------------------");
             Console.WriteLine($"{player.Name} stats -> Health = {player.Health}, Mana = {player.Mana}");
             Console.WriteLine("----------------------------------------------------------------------------");
-            Console.Write("\nPress any key to continue...");
-            Console.ReadKey(true);
             Console.WriteLine("\n");
-            Console.Clear();
+
         }
 
         public int ShowSpellPhaseSelection()
@@ -340,11 +338,57 @@ namespace CardGame
         {
             Console.WriteLine("Playing Hand:");
             int index = 1;
-            foreach(ICard c in playingcards)
+            foreach (ICard card in playingcards)
             {
-                Console.WriteLine($"{index} = {c.Name}, Cost = {c.Cost}, Attack {c.Attack}, Defense {c.Defense}.");
+                Console.Write(" ┌─────────────────────┐ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ Index:{index,-2}            │ ");
                 index++;
             }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ {card.Name,-19} │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ Cost: {card.Cost,-2}            │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write(" │                     │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ Attack: {card.Attack,-2}          │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write($" │ Defense: {card.Defense,-2}         │ ");
+            }
+            Console.WriteLine();
+            foreach (ICard card in playingcards)
+            {
+                Console.Write(" └─────────────────────┘ ");
+            }
+            Console.WriteLine();
             Console.WriteLine($"{index} = Leave.");
             Console.WriteLine("Which one do you want to remove?");
 
