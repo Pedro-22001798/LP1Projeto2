@@ -119,7 +119,6 @@ namespace CardGame
     int index = 1;
     
     Console.WriteLine("Your Hand:");
-    int maxCardNameLength = hand.Max(card => card.Name.Length);
     foreach (ICard card in hand)
     {
         Console.WriteLine(" ┌─────────────────────┐ ");
