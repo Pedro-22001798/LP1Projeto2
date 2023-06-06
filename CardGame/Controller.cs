@@ -81,14 +81,7 @@ namespace CardGame
 
                 AttackGamePhase();
 
-                foreach (IPlayer p in playerList)
-                {
-                    if (view.AskForQuit(p))
-                    {
-                        gameOver = true;
-                        break;
-                    }
-                }
+                
             }
             while(!gameOver);
             //while(playerList[0].Health > 0 && playerList[1].Health > 0 && playerList[0].Deck.Count() > 0 && playerList[1].Deck.Count() > 0);
@@ -123,8 +116,16 @@ namespace CardGame
                 }
                 else if(option == 5)
                 {
-                    gameOver = true;
-                    break;
+                    if (view.AskForQuit(player))
+                    {
+                        gameOver = true;
+                        break;
+                    }
+                    else
+                    {
+                        view.Turn(player);
+                        int selectedOption = view.ShowSpellPhaseSelection();
+                    }
                 }
             }
             while(option != 0 && option != 5);

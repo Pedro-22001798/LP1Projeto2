@@ -167,15 +167,20 @@ namespace CardGame
         {
             string input;
             bool isValidInput = false;
+
             do
             {
-                Console.WriteLine($"{player.Name}, do you want to quit the game? (Yes/No)");
+                Console.WriteLine($"{player.Name}, are you sure you want to quit? Yes/No");
 
                 input = Console.ReadLine()?.Trim().ToLower();
 
-                if (input == "yes" || input == "no")
+                if (input == "yes")
                 {
-                    isValidInput = true;
+                    return true;
+                }
+                else if (input == "no")
+                {
+                    return false;
                 }
                 else
                 {
@@ -183,8 +188,10 @@ namespace CardGame
                 }
             }
             while (!isValidInput);
-            return input == "yes";
+
+            return false;
         }
+
 
         public int ShowPlayingCardsToRemove(IEnumerable<ICard> playingcards)
         {
