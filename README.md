@@ -1,30 +1,34 @@
-- Project Title :
-LP1 Project 2 | Tragic : The Reckoning
+# Project Title :
+## LP1 Project 2 | Tragic : The Reckoning
 
 
-- Done by :
+## Done by :
 Pedro Silva 22001798
 Bruno Rodrigues 22103346
 Nuno Matias 22104821
 
 
-- Pedro Silva :
+### Pedro Silva :
+- Created program class and MVC
+- Created both Classes and Interfaces
+- Created Deck Creator
+- Commented the code
 
-- Bruno Rodrigues :
+### Bruno Rodrigues :
 
 - Nuno Matias :
 Created the report and wrote the explanations for the code
 Reviewed the code and pointed mistakes to be changed ( dead code & spelling)
 
-- Git Repository:
+## Git Repository:
 https://github.com/Pedro-22001798/LP1Projeto2
 
 
-- Solution Structure:
+## Solution Structure:
 The project was created following the MVC structure meanning we devided our classes in the
 Model - View - Controller perspective
 
-- Program
+## Program
 We start by creating our class Program that contains the Main method.
 Inside of it we created the class deckCreator that´s part of our Model and is responsable for creating and shuffling the deck.
 
@@ -36,7 +40,7 @@ them in the interface for the players to see.
 
 We will go more in depth in each one of these later on.
 
-- Cards
+## Cards
 Before our Controller class starts running the game we have to create other classes that will set up certain things needed for it, the cards/deck, the players and the interface.
 Starting with the ones responsible for creating the cards and the deck we have three different classes, ICard, Card & DeckCreator that are part of the Model section of MVC.
 
@@ -60,7 +64,7 @@ The different cards that are created will be seperated from eachother using for 
 Inside each for loop for each card is where we are going to place the Name and Values to the corresponding card so when we have | new Card("Flying Wand", 1 1 1) | we created a new card named Flying Wand that has a Cost, Attack & Defense of 1 in that order. If for example we changed the values to 1 2 1, than the Flying Wand card would now have 2 Attack instead of 1.
 
 
-- Players
+## Players
 To play a game we also need players and to create them we have two classes, IPlayer & Player that are also part of the Model section of MVC.
 Just like in ICard class that gets the basic variables for the cards, IPlayer gets the variables and methods for the player. Each one has three variables, Name, type string, Health and Mana, type int.
 After, we have three enumerable methods from ICard, named Hand, that will get what cards the player has on his hand, Deck that will get the cards remaining on the player´s deck and PlayingHand which gets what card(s) the player is playing during the AttackPhase.
@@ -105,3 +109,7 @@ is able to use on the respective turn. The bool variable is named gameOver and i
 
 We than have our first method, in this case a constructor, inside the Controller class called Controller that calls for the DeckCreator class to access the deck as well as creating a playerList variable that creates
 a new list of players by calling the IPlayer class
+
+## References
+- Possible null treatments and possible empty strings = StackExchange and ChatGPT
+- Logic behing Attack Stage = Talk with colleagues
