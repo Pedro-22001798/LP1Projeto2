@@ -41,7 +41,7 @@ namespace CardGame
                 Attack = 0;
         }
 
-        public void SetDefense(int defense);
+        public void SetDefense(int defense)
         {
             this.Defense = defense;
         }
