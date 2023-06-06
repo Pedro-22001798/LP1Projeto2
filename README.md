@@ -15,10 +15,10 @@ Nuno Matias 22104821
 - Commented the code
 
 ### Bruno Rodrigues :
--Created View User Interface
--Worked on AttackPhase 
--Buf fixing
--Created UML
+- Created View User Interface
+- Worked on AttackPhase 
+- Bug fixing
+- Created UML
 
 ###  Nuno Matias :
 - Created the report and wrote the explanations for the code
